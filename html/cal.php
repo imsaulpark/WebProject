@@ -1,140 +1,71 @@
-<?
-$yy = $_REQUEST['yy'];
-$mm = $_REQUEST['mm'];
-if($yy == '') $yy = date('Y');
-if($mm == '') $mm = date('m');
+<?php
 
-function sel_yy($yy, $func) {
-	if($yy == '') $yy = date('Y');
+$last_day = date("t", time()); //ì´ ìš”ì¼ ìˆ˜
+$start_day = date("w", strtotime(date("Y-m")."-01")); //ì‹œì‘ ìš”ì¼
+$total_week = ceil(($last_day + $start_day)/7); // ì´ ìš”ì¼
+$last_week = date('w',strtotime(date("Y-m")."-".$last_day));
 
-	if($func=='') {
-		$str = "<select name='yy'>\n<option value=''></option>\n";
-	} else {
-		$str = "<select name='yy' onChange='$func'>\n<option value=''></option>\n";
-	}
-	$gijun = date('Y');
-	for($i=$gijun-5;$i<$gijun+2;$i++) {
-		if($yy == $i) $str .= "<option value='$i' selected>$i</option>";
-		else $str .= "<option value='$i'>$i</option>";
-	}
-	$str .= "</select>";
-	return $str;
-}
-
-function sel_mm($mm, $func) {
-	if($func=='') {
-		$str = "<select name='mm'>\n";
-	} else {
-		$str = "<select name='mm' onChange='$func'>\n";
-	}
-	for($i=1;$i<13;$i++) {
-		if($mm == $i) $str .= "<option value='$i' selected>{$i}¿ù</option>";
-		else $str .= "<option value='$i'>{$i}¿ù</option>";
-	}
-	$str .= "</select>";
-	return $str;
-}
-
-function get_schedule($yy,$mm,$dd) {
-	$mm = str_pad($mm, 2, "0", STR_PAD_LEFT);
-	$dd = str_pad($dd, 2, "0", STR_PAD_LEFT);
-	$dtstr = $yy."-".$mm."-".$dd;
-	$sql = "SELECT *
-FROM schedule
-WHERE frdt <= '$dtstr'
-AND todt >= '$dtstr'
-ORDER BY frdt, todt";
-	$ret = dbquery($sql) or die(mysql_error());
-	while($row = dbfetch($ret)) {
-		$str .= "<font style='font-size:8pt;'>- $row[name]</font><br>";
-	}
-	return $str;
-}
-
-
-// 1. ÃÑÀÏ¼ö ±¸ÇÏ±â
-$last_day = date("t", strtotime($yy."-".$mm."-01"));
-
-// 2. ½ÃÀÛ¿äÀÏ ±¸ÇÏ±â
-$start_week = date("w", strtotime($yy."-".$mm."-01"));
-
-// 3. ÃÑ ¸î ÁÖÀÎÁö ±¸ÇÏ±â
-$total_week = ceil(($last_day + $start_week) / 7);
-
-// 4. ¸¶Áö¸· ¿äÀÏ ±¸ÇÏ±â
-$last_week = date('w', strtotime($yy."-".$mm."-".$last_day));
 ?>
-<form name="form" method="get">
-<table width='910' cellpadding='0' cellspacing='1' bgcolor="#999999">
-<tr>
-<td height="50" align="center" bgcolor="#FFFFFF" colspan="7">
-<?=sel_yy($yy,'submit();')?>³â <?=sel_mm($mm,'submit();')?>¿ù <input type="submit" value="º¸±â"></td>
-</tr>
-<tr>
-<td width="130" height="30" align="center" bgcolor="#DDDDDD"><b>ÀÏ</b></td>
-<td width="130" align="center" bgcolor="#DDDDDD"><b>¿ù</b></td>
-<td width="130" align="center" bgcolor="#DDDDDD"><b>È­</b></td>
-<td width="130" align="center" bgcolor="#DDDDDD"><b>¼ö</b></td>
-<td width="130" align="center" bgcolor="#DDDDDD"><b>¸ñ</b></td>
-<td width="130" align="center" bgcolor="#DDDDDD"><b>±İ</b></td>
-<td width="130" align="center" bgcolor="#DDDDDD"><b>Åä</b></td>
-</tr>
 
-<?
-$today_yy = date('Y');
-$today_mm = date('m');
-// 5. È­¸é¿¡ Ç¥½ÃÇÒ È­¸éÀÇ ÃÊ±â°ªÀ» 1·Î ¼³Á¤
-$day=1;
-	
-// 6. ÃÑ ÁÖ ¼ö¿¡ ¸ÂÃç¼­ ¼¼·ÎÁÙ ¸¸µé±â
-for($i=1; $i <= $total_week; $i++){?>
-<tr>
-<?
-	// 7. ÃÑ °¡·ÎÄ­ ¸¸µé±â
-	for ($j=0; $j<7; $j++){
-?>
-<td width="130" height="120" align="left" valign="top" bgcolor="#FFFFFF">
-  <?
-	// 8. Ã¹¹øÂ° ÁÖÀÌ°í ½ÃÀÛ¿äÀÏº¸´Ù $j°¡ ÀÛ°Å³ª ¸¶Áö¸·ÁÖÀÌ°í $j°¡ ¸¶Áö¸· ¿äÀÏº¸´Ù Å©¸é Ç¥½ÃÇÏÁö ¾Ê¾Æ¾ßÇÏ¹Ç·Î
-	//    ±× ¹İ´ëÀÇ °æ¿ì -  ! À¸·Î Ç¥Çö - ¿¡¸¸ ³¯ÀÚ¸¦ Ç¥½ÃÇÑ´Ù.
-	if (!(($i == 1 && $j < $start_week) || ($i == $total_week && $j > $last_week))){
+<!DOCTYPE>
+<HTML>
+<head>
+</head>
+    <body>
+        <table width='500' cellpadding='0' cellspacing="1" bgcolor="#999999">
+           <tr>
+                <td height="50" align="center" bgcolor="#FFFFFF" colspan="7">
+                     ë‹˜ ë¹¨ë¦¬ ë³€ê²½ì¢€ì œë°œìœ  
+                     <?=date("Yë…„ nì›”")?>
+                     
+                </td>
+            </tr>
+          <tr>
+                <td width="60" height="60" align="center" bgcolor="#DDDDDDD">ì¼</td>
+                <td align="center" bgcolor="#DDDDDDD">ì›”</td>
+                <td align="center" bgcolor="#DDDDDDD">í™”</td>
+                <td align="center" bgcolor="#DDDDDDD">ìˆ˜</td>
+                <td align="center" bgcolor="#DDDDDDD">ëª©</td>
+                <td align="center" bgcolor="#DDDDDDD">ê¸ˆ</td>
+                <td align="center" bgcolor="#DDDDDDD">í† </td>
+            </tr>
 
-		if($j == 0){
-			// 9. $j°¡ 0ÀÌ¸é ÀÏ¿äÀÏÀÌ¹Ç·Î »¡°£»ö
-			echo "<font color='#FF0000'><b>";
-		}else if($j == 6){
-			// 10. $j°¡ 0ÀÌ¸é ÀÏ¿äÀÏÀÌ¹Ç·Î ÆÄ¶õ»ö
-			echo "<font color='#0000FF'><b>";
-		}else{
-			// 11. ±×¿Ü´Â ÆòÀÏÀÌ¹Ç·Î °ËÁ¤»ö
-			echo "<font color='#000000'><b>";
-		}
+            <?php 
+/*
+                $day=1; //ë‹¬ë ¥ì´ˆê¸° ê°’
+                for($i=1; $i<=$total_week; $i++){
+                    echo "$total_week";
+            ?><tr width="60" height="60"><?php}
+            
+                
+                //ê°€ë¡œì¹¸ ìƒì„± 7ì¹¸ ì›”~ì¼
+                for($j=0; $j<7; $j++)
+                    { ?> ì œë°œ
+ 
+                <td height="30" align="center" bgcolor="#FFFFFF">
+                </td> íìœ¼ìœ¼ìŒ
+                <?php } ?>
+                
+*/
 
-		// 12. ¿À´Ã ³¯ÀÚ¸é ±½Àº ±Û¾¾
-		if($today_yy == $yy && $today_mm == $mm && $day == date("j")){
-			echo "<u>";
-		}
-		
-		// 13. ³¯ÀÚ Ãâ·Â
-		echo $day;
+    $day=1;
 
-		if($today_yy == $yy && $today_mm == $mm && $day == date("j")){
-			echo "</u>";
-		}
+    // 6. ì´ ì£¼ ìˆ˜ì— ë§ì¶°ì„œ ì„¸ë¡œì¤„ ë§Œë“¤ê¸°
+    for($i=1; $i <= $total_week; $i++){?>
 
-		echo "</b></font> &nbsp;";
+        <tr>
+        <?php
+        // 7. ì´ ê°€ë¡œì¹¸ ë§Œë“¤ê¸°
+        for ($j=0; $j<7; $j++){
+        ?>
+	        <td height="30" align="center" bgcolor="#FFFFFF">
+	        ì™œì•ˆë ê¹Œ?
+	        </td>
+        <?php } ?>
+        </tr>
+    <?php } ?>
+       </table>
 
-		//½ºÄÉÁÙ Ãâ·Â
-		//$schstr = get_schedule($yy,$mm,$day);
-		echo $schstr;
+    </body>
 
-		// 14. ³¯ÀÚ Áõ°¡
-		$day++;
-	}
-	?>
-</td>
-<?}?>
-</tr>
-<?}?>
-</table> 
-</form>
+</HTML>

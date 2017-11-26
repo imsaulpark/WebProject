@@ -1,7 +1,12 @@
 <?php
+
+	$keywords = array("keyword1", "keyword2", "keyword3", "keyword4", "keyword5", "keyword6");
+
+
 class USER
 {
 	private $db;
+
 
 	function __construct($DB_con)
 	{
@@ -72,8 +77,71 @@ class USER
 		{
 			echo $e->getMessage();
 		}
+	}
 
+	public function get_num_post($id)
+	{
+		try
+		{
+			$stmt = $this->db->prepare("SELECT * FROM posts WHERE memberId=:id LIMIT 1");
+			$stmt->execute(array(':id'=>$id));
+			return $stmt->rowCount();
+		}
+		catch(PDOException $e)
+		{
+			echo $e->getMessage();
+		}
+	}
 
+	public function get_user_post($memberId, $soje)
+	{
+		try
+		{
+			$stmt = $this->db->prepare("SELECT * FROM posts WHERE memberId=:memberId and soje=:soje");
+			$stmt->execute(array(':id'=>$memberId,':soje'=$soje));
+			return $stmt;
+		}
+		catch(PDOException $e)
+		{
+			echo $e->getMessage();
+		}
+	}
+
+	public function get_post($id)
+	{
+		try
+		{
+			$stmt = $this->db->prepare("SELECT * FROM posts WHERE id=:id");
+			$stmt->execute(array(':id'=>$id));
+			$userRow=$stmt->fetch(PDO::FETCH_ASSOC);
+			return $userRow;
+		}
+		catch(PDOException $e)
+		{
+			echo $e->getMessage();
+		}
+	}
+
+	public function add_soje($id, $soje)
+	{
+		try
+		{
+			$stmt = $this->db->prepare("SELECT * FROM keyword WHERE id=:id");
+			$stmt->execute(array(':id'=>$id));
+			$userRow=$stmt->fetch(PDO::FETCH_ASSOC);
+			for($i=0;$i<6;$i++)
+			{
+				if($userRow[$keywords[$i]]==NULL)
+				{
+					$stmt = $this->db->prepare("UPDATE keyword SET :keyname=:soje WHERE id=:id");
+					$stmt->execute(array(':id'=>$id,':soje'=>$soje,':keyname'=>$keywords[$i]));
+				}
+			}
+		}
+		catch(PDOException $e)
+		{
+			echo $e->getMessage();
+		}
 	}
 
 	public function is_loggedin()

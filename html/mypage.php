@@ -1,14 +1,17 @@
 <?php
 
+
+	session_start();
+
 	require_once 'dbconfig.php';
-	
+
+
 	$keywords = array("keyword1", "keyword2", "keyword3", "keyword4", "keyword5", "keyword6");
 
 	if(!$user->is_loggedin())
 	{
 		$user->redirect('index.php');
 	}
-
 
 ?>
 
@@ -50,7 +53,8 @@
 				</div>
 				<div class="rightBox">
 					<p class="p1">책소개가<br/>들어가는 부분!</p>
-					<p class="p2">구독자 수 n명<br/>작성글 수 n개</p>
+					<p class="p2">구독자 수 n명<br/>작성글 수 <?php echo $user->get_num_post($_SESSION['id']) ?>개</p>
+					
 				</div>
 			</div>
 		</div>
