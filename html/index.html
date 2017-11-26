@@ -1,59 +1,39 @@
-<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
-<html xmlns="http://www.w3.org/1999/xhtml">
-<head>
-<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
-<title>Bitnami: Open Source. Simplified</title>
-<link href="bitnami.css" media="all" rel="Stylesheet" type="text/css" />
-</head>
-<body>
-<div id="container">
-  <div id="header"> 
-    <div id="bitnami">
-        <a href="/"><img alt="Bitnami" src="img/bitnami.png?1186088387" /></a>
+<!doctype html>
+<meta charset="utf-8">
+<html>
+  <head>
+    <link rel="stylesheet" type="text/css" href="../css/index.css">
+  </head>
+  <body id="body">
+    <div class="header">
+      <div class="btnArea">
+        <ul>
+          <li><a href="">MAIN</a></li> 
+          <li><a href="">MY</a></li>
+        </ul>
+      </div>
     </div>
-  </div>
-    <div id="menu_launch_page">
-      <table cellpadding="0" cellspacing="0">
-        <tr>
-          <td><img src="img/tab1_welcome.png" alt="" /></td>
-          <td><a href="applications.html"><img src="img/tab2_welcome.png" alt="" /></a></td>
-        </tr>
-      </table>
-    </div>
-  <div id="lowerContainer">
-    <div id="content">
-        <div align="center">
-<table class="tableParagraph">
-<tr>
-<td class="container">
-<img align="left" src="img/wampstack.png" alt="Bitnami WAMP Stack"/>
-<p>We created the Bitnami Project to help spread the adoption of freely
-available, high quality Open Source web applications. Bitnami aims to make
-it easier than ever to discover, download and install Open Source software such 
-as document and content management systems, wikis and blogging software.<br/><br/>
-
-You can learn more about Bitnami at <a href="https://bitnami.com">https://bitnami.com</a><br/><br/>
-
-The Bitnami WAMP Stack is an easy to install
-software platform that greatly simplifies the deployment of Open Source web
-stacks. It includes ready-to-run versions of
-Apache, MySQL and PHP. Bitnami WAMP Stack is
-distributed for free under the Apache 2.0 license.<br/><br/> 
-To get started with Bitnami WAMP Stack we suggest the following:<br/><br/>
-
-
-<b>1.- <a target="_blank" href="https://docs.bitnami.com/installer/infrastructure/wamp/">Check our documentation</a></b>. The stack is self-contained and independent on your system, you can find all components in your installation directory: C:/Bitnami/wampstack-7.1.11-0<br/><br/>
-<b>2.- <a target="_blank" href="https://docs.bitnami.com/installer/infrastructure/wamp/#how-to-start-or-stop-the-servers">Start the servers.</a></b> Open the graphical "Manager" tool in your installation directory to start &amp; stop the installed servers. You can also use "ctlscript.sh" from the command line prompt. <br/><br/>
-<b>3.- <a target="_blank" href="https://docs.bitnami.com/installer/infrastructure/wamp/#add-applications-amp">Add more apps.</a></b> Download and install any Bitnami application module to run on top of this Stack.<br/><br/>
-<b>4.- <a target="_blank" href="https://docs.bitnami.com/installer/infrastructure/wamp/#how-to-create-a-custom-php-application">Deploy your own project</a></b>.
-</p>
-</td>
-</tr>
-</table>
+    <div class="bodyInbox">
+      <div class="content">
+        <div class="leftBox">
+          <form class="loginForm" method="post">
+            <fieldset>
+              <ul>
+                <li><span>ID</span><input name="id" type="text"> </li>
+                <li><span>PW</span><input name="pw" type="password"> </li>
+              </ul>
+              <p><button name="loginBtn" id="loginBtn"><a>로그인</a></button></p>
+              <div><a href="./join.php">회원가입</a> / <a href="javascript:;" onclick="find_id_pw();">ID&PW찾기</a> </div>
+              <a href="./find_ID_PW.php">ID&PW찾기</a>
+            </fieldset>
+          </form>
         </div>
-        <br/><br/>
-   </div>
-  </div>
-</div>
-</body>
+        <div class="rightBox">
+          <p class="p1">Book Chef</p>
+          <p class="p2">당신만의 책을 <br/>요리하세요!</p>
+        </div>
+      </div>
+    </div>
+    <script type="text/javascript" src="../js/index.js"></script>
+  </body>
 </html>

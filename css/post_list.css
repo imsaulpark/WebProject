@@ -12,7 +12,7 @@ p{margin: 0px; }
    margin: 0px 5px; 
    border: 1px solid #666666;
 }
-#title{height: 50px; margin: 20px 0px; border-bottom: 3px solid #333333; }
+#title{height: 130px; margin: 20px 0px; border-bottom: 3px solid #333333; }
 .bodyInbox .content{width: 100%; height: 100%; clear:both; margin-top: 50px; }
 
 .bodyInbox .content .leftBox{float: left; width: 90%; padding: 40px 0px; box-sizing: border-box;}
@@ -21,20 +21,27 @@ p{margin: 0px; }
 .leftBox ul li input{border: 1px solid #666; height: 24px; width: 150px; margin: 5px; }
 .leftBox ul li span{width: 80px; display: inline-block;}
 div .list{width: 300px; padding: 5px 10px; border: 1px solid #666666; border-radius: 5px; background: none; text-align: center;}
+div .list:hover {background-color: #ddd;}
 h2 {word-break:break-all;}
 span .category {float: left;}
 span .soje{float: right;}
 .bodyInbox .content .rightBox{float: right; width: 10%; padding: 40px 0px; box-sizing: border-box;}
 
 
-.content p{width: 160px; margin: 0px auto;}
+.content p{width: 200px; margin: 0px auto;}
 .write {font-size: 15px; padding: 5px 10px; border: 1px solid #666666; border-radius: 5px; background: none; text-align: center;}
 
 .content ul{width: 600px; height: 550px; margin: 0 auto;}
 .content ul li input{border: 1px solid #666; border-radius: 3px; height: 24px; width: 450px; margin: 5px;}
-textarea{border: 1px solid #666; border-radius: 3px; height: 400px; width: 450px; margin: 5px;}
+textarea{border: 1px solid #666; border-radius: 3px; height: 200px; width: 447px; margin: 5px;}
 .content ul span{width: 120px; display: inline-block;}
 #auto{font-size: 14px; border: 1px solid #666; border-radius: 3px; height: 21px; width: auto; margin: 5px; padding: 3px}
 #content{width: 120px; float: left; margin: 0px 0px;}
-#textarea{float: left; height: 500px; width: 450px;}
+#del_ID{float: right;}
+button{font-size: 15px; padding: 5px 15px; 
+   border-radius: 5px;  
+   margin: 0px 5px; 
+   border: 1px solid #666666;
+   background: none;}
+#book_intro{float: left;}
 form ul li select{border: 1px solid #666; border-radius: 3px; height: 24px; width: 150px; margin: 5px 0px;}

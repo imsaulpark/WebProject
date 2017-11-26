@@ -163,6 +163,5 @@ if(isset($_POST['confirm']))
 				</div>
 			</div>
 		</div>
-		<script type="text/javascript" src="../js/index.js"></script>
 	</body>
 </html>

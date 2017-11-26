@@ -1,0 +1,42 @@
+<!doctype html>
+<meta charset="utf-8">
+<html>
+   <head>
+      <link rel="stylesheet" type="text/css" href="../css/post_list.css">
+   </head>
+   <body>
+      <div class="header">
+         <div class="btnArea">
+            <ul>
+               <li><a href="mypage.html">MY</a></li>
+               <li><a href="">MAIN</a></li> 
+               <li><a href="index.html" onclick="logout()">LogOut</a></li> 
+            </ul>
+         </div>
+      </div>
+      <div class="header" id="title">
+         <h1>회원 정보 수정</h1>
+      </div>
+      <div class="bodyInbox">
+         <div class="content">
+            <ul>
+                  <li><span>저자(이름)</span><input name="name" type="text" text=""> </li>
+                  <li><span>작명(닉네임)</span><input name="nickname" type="password" text=""> </li>
+                  <li><span>핸드폰 번호</span><input name="phone" type="password" text=""> </li>
+                  <li><span>패스워드</span><input name="pw" type="text" text=""> </li>
+                  <li><span>패스워드 확인</span><input name="pwcheck" type="text" text=""> </li>
+                  <div id="book_intro"><span>책소개</span></div><div id="textarea"><textarea name="book_intro"></textarea></div>
+
+                  <li><span>구독자 이름</span><button type="submit" name="del">삭제</button> </li>
+               </ul>
+               <button type="submit" name="del_ID" id="del_ID">회원 탈퇴</button>
+               <p>
+                  <button type="submit" name="editBtn">수정완료</button>
+
+                  <button type="cancel" name="cancelBtn">취소</button>
+               </p>
+         </div>
+      </div>
+      <script type="text/javascript" src="../js/index.js"></script>
+   </body>
+</html>
