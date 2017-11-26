@@ -1,5 +1,5 @@
 <?php
-/**/
+/* 11*/
 session_start();
 
 require_once 'dbconfig.php';
