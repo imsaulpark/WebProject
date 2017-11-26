@@ -1,0 +1,19 @@
+ul{list-style: none;}
+li{list-style: none;}
+a{text-decoration: none; color: #000;}
+p{margin: 0px; }
+
+.header {height: 80px; text-align: center;}
+.bodyInbox {width: 380px; margin: 0 auto;}
+.bodyInbox .content{width: 100%; height: 100%; clear:both;}
+
+.content div{width: 170px; margin: 0px auto;}
+.content p{z-index: -1; width: 200px; margin: 0px auto;}
+.bottomBtn {z-index: 1; padding: 5px 10px; border: 1px solid #666666; border-radius: 5px; background: none; text-align: center;}
+.bottomBtn a{font-size: 15px}
+.content ul{width: 340px; height: 380px; margin: 0 auto;}
+.content ul li input{border: 1px solid #666; height: 24px; width: 150px; margin: 5px; }
+textarea{border: 1px solid #666; height: 72px; width: 147px; margin: 5px;}
+.content ul span{width: 150px; display: inline-block;}
+#book_intro{width: 150px; float: left; margin: 0px 0px;}
+#textarea{float: left;}

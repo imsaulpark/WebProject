@@ -1,0 +1,31 @@
+ul{list-style: none;}
+li{list-style: none;}
+a{text-decoration: none; color: #000;}
+p{margin: 0px; }
+
+.bodyInbox {width: 900px; margin: 0 auto;}
+.header{width: 100%; height: 60px;}
+.header .btnArea {float: right; width: 170px; }
+.header ul li{
+	float: left; 
+	padding: 3px 7px; 
+	border-radius: 5px;  
+	margin: 0px 5px; 
+	border: 1px solid #666666;
+}
+.header ul li a{color: white;}
+.bodyInbox .content{width: 100%; height: 100%; clear:both; margin-top: 50px; }
+
+.bodyInbox .content .leftBox{float: left; width: 450px;  padding: 40px 0px; box-sizing: border-box;}
+.leftBox div{width: 170px; margin: 20px auto;}
+.leftBox p{z-index: -1; width: 80px;  border: 1px solid #666666; border-radius: 5px; text-align: center; margin: 20px auto;}
+#loginBtn{z-index: 1; padding: 5px 10px; border: none; background: none; text-align: center;}
+#loginBtn a{font-size: 17px}
+.leftBox ul{    width: 242px;    margin: 0 auto;}
+.leftBox ul li input{border: 1px solid #666; height: 24px; width: 150px; margin: 5px; }
+.leftBox ul li span{width: 80px; display: inline-block;}
+.bodyInbox .content .rightBox{float: right; width: 450px;padding: 40px 0px; box-sizing: border-box;}
+.rightBox .p1{text-align: center; font-size: 40px; color: white;}
+.rightBox .p2{text-align: center; font-size: 30px; margin-top: 30px; color: white;}
+.leftBox form fieldset {background-color: white}
+#body {background-image:url(../img/background.jpg); background-size: 110% 200%; }

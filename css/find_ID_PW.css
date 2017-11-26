@@ -1,0 +1,18 @@
+ul{list-style: none;}
+li{list-style: none;}
+a{text-decoration: none; color: #000;}
+p{margin: 0px; }
+
+.bodyInbox {width: 650px; margin: 0 auto;}
+.bodyInbox .content{width: 100%; height: 100%; clear:both;}
+
+.bodyInbox .content .leftBox{float: left; width: 300px;  padding: 40px 0px; box-sizing: border-box;}
+.content div{width: 170px; margin: 0px auto;}
+.content p{z-index: -1; width: 120px;  border: 1px solid #666666; border-radius: 5px; text-align: center; margin: 30px auto;}
+.find {z-index: 1; padding: 5px 10px; border: none; background: none; text-align: center;}
+.find a{font-size: 15px}
+.content ul{    width: 242px;    margin: 0 auto;}
+.content ul li input{border: 1px solid #666; height: 24px; width: 150px; margin: 5px; }
+.content ul li span{width: 80px; display: inline-block;}
+.bodyInbox .content .rightBox{float: left; width: 300px;padding: 40px 0px; box-sizing: border-box;}
+.input{height: 120px}

@@ -1,0 +1,42 @@
+<!doctype html>
+<meta charset="utf-8">
+<html>
+	<head>
+		<link rel="stylesheet" type="text/css" href="../css/mypage.css">
+	</head>
+	<body id="body">
+		<div class="header">
+			<div class="btnArea">
+				<ul>
+					<li><a href="">수정</a></li>
+					<li><a href="">MAIN</a></li> 
+					<li><a href="index.html" onclick="logout()">LogOut</a></li> 
+				</ul>
+			</div>
+		</div>
+		<div class="bodyInbox">
+			<div class="content">
+				<div class="leftBox">
+					<form>
+						<span>저자/작명 부분</span>
+						<a href="calendar.html" id="topBtn">달력</a>
+						<a href="subscribe.html" id="topBtn">구독자</a>
+						<div></div>
+						<button class="btn" name="cat1"><a>카테고리1</a></button>
+						<button class="btn" name="cat2"><a>카테고리2</a></button>
+						<button class="btn" name="cat3"><a>카테고리3</a></button>
+						<button class="btn" name="cat4"><a>카테고리4</a></button>
+						<button class="btn" name="cat5"><a>카테고리5</a></button>
+						<button class="btn" name="cat6"><a>카테고리6</a></button>
+						<a class="btn" id="addCat" name="addCat" href="javascript:;" onclick="addsoje();">추가</a>
+					</form>
+				</div>
+				<div class="rightBox">
+					<p class="p1">책소개가<br/>들어가는 부분!</p>
+					<p class="p2">구독자 수 n명<br/>작성글 수 n개</p>
+				</div>
+			</div>
+		</div>
+		<script type="text/javascript" src="../js/mypage.js"></script>
+	</body>
+</html>
