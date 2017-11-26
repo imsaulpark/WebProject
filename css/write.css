@@ -9,8 +9,8 @@ p{margin: 0px; }
 
 
 .content p{width: 160px; margin: 0px auto;}
-.btn {padding: 5px 10px; border: 1px solid #666666; border-radius: 5px; background: none; text-align: center;}
-.btn a{font-size: 15px}
+.btn {font-size: 15px; padding: 5px 10px; border: 1px solid #666666; border-radius: 5px; background: none; text-align: center;}
+
 .content ul{width: 600px; height: 550px; margin: 0 auto;}
 .content ul li input{border: 1px solid #666; border-radius: 3px; height: 24px; width: 450px; margin: 5px;}
 textarea{border: 1px solid #666; border-radius: 3px; height: 400px; width: 450px; margin: 5px;}
