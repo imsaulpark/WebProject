@@ -1,17 +1,25 @@
 <?php
 
 	$keywords = array("keyword1", "keyword2", "keyword3", "keyword4", "keyword5", "keyword6");
+	require_once('dbconfig.php');
 
 
 class USER
 {
 	private $db;
 
-
-	function __construct($DB_con)
+	public function __construct()
 	{
-		$this->db = $DB_con;
-	}
+		$database = new Database();
+		$conn = $database->dbConnection();
+		$this->db = $conn;
+    }
+
+		public function runQuery($sql)
+		{
+			$stmt = $this->db->prepare($sql);
+			return $stmt;
+		}
 
 	public function register($id,$pw,$phone,$name,$nickname,$intro)
 	{
@@ -20,7 +28,7 @@ class USER
 		{
 			$hashed_pw = password_hash($pw, PASSWORD_DEFAULT);
 
-			$stmt = $this->db->prepare("INSERT INTO members(id,pw,phone,name,nickname,intro) 
+			$stmt = $this->db->prepare("INSERT INTO members(id,pw,phone,name,nickname,intro)
 					VALUES(:id,:pw,:phone,:name,:nickname,:intro)");
 			$stmt->bindparam(":id", $id);
 			$stmt->bindparam(":pw", $hashed_pw);
@@ -28,9 +36,9 @@ class USER
 			$stmt->bindparam(":name", $name);
 			$stmt->bindparam(":nickname", $nickname);
 			$stmt->bindparam(":intro", $intro);
-			$stmt->execute(); 
+			$stmt->execute();
 
-			return $stmt; 
+			return $stmt;
 		}
 		catch(PDOException $e)
 		{
@@ -64,19 +72,70 @@ class USER
 			echo $e->getMessage();
 		}
 	}
-	public function get_keyword($id)
+
+	public function get_soje($id)
 	{
 		try
 		{
-			$stmt = $this->db->prepare("SELECT * FROM keyword WHERE id=:id LIMIT 1");
+			$stmt = $this->db->prepare("SELECT * FROM keyword WHERE id=:id");
 			$stmt->execute(array(':id'=>$id));
-			$userRow=$stmt->fetch(PDO::FETCH_ASSOC);
-			return $userRow;
+			return $stmt;
 		}
 		catch(PDOException $e)
 		{
 			echo $e->getMessage();
 		}
+	}
+
+	public function add_soje($id, $category, $soje)
+	{
+		try
+		{
+			$stmt = $this->db->prepare("SELECT * FROM keyword WHERE id=:id");
+			$stmt->execute(array(':id'=>$id));
+
+			if($stmt->rowCount()<6)
+			{
+				$stmt = $this->db->prepare("INSERT INTO keyword VALUES (:id, :category, :soje)");
+				$stmt->execute(array(':id'=>$id,':category'=>$category,':soje'=>$soje));
+			}
+		}
+		catch(PDOException $e)
+		{
+			echo $e->getMessage();
+		}
+	}
+
+	public function edit_soje($id, $oldcategory,$oldsoje,$newcategory, $newsoje)
+	{
+		try
+		{
+			$stmt = $this->db->prepare("UPDATE keyword SET category=:newcategory, soje=:newsoje WHERE id=:id and category=:oldcategory and soje=:oldsoje");
+			$stmt->execute(array(':id'=>$id,':newcategory'=>$newcategory,':newsoje'=>$newsoje,':oldcategory'=>$oldcategory,':oldsoje'=>$oldsoje));
+
+			//posts에 있던 자료들도 수정해줘야함.
+			$stmt = $this->db->prepare("UPDATE posts SET category=:newcategory, soje=:newsoje WHERE memberID=:memberID and category=:oldcategory and soje=:oldsoje");
+			$stmt->execute(array(':memberID'=>$id,':newcategory'=>$newcategory,':newsoje'=>$newsoje,':oldcategory'=>$oldcategory,':oldsoje'=>$oldsoje));
+
+		}
+		catch(PDOException $e)
+		{
+			echo $e->getMessage();
+		}
+	}
+
+	public function delete_soje($id,$category,$soje)
+	{
+		try
+		{
+			$stmt = $this->db->prepare("DELETE FROM keyword WHERE id=:id AND category=:category AND soje=:soje");
+			$stmt->execute(array(':id'=>$id,':category'=>$category,':soje'=>$soje));
+		}
+		catch(PDOException $e)
+		{
+			echo $e->getMessage();
+		}
+
 	}
 
 	public function get_num_post($id)
@@ -98,7 +157,7 @@ class USER
 		try
 		{
 			$stmt = $this->db->prepare("SELECT * FROM posts WHERE memberId=:memberId and soje=:soje");
-			$stmt->execute(array(':id'=>$memberId,':soje'=$soje));
+			$stmt->execute(array(':id'=>$memberId,':soje'=>$soje));
 			return $stmt;
 		}
 		catch(PDOException $e)
@@ -122,26 +181,97 @@ class USER
 		}
 	}
 
-	public function add_soje($id, $soje)
+	public function write_post($memberID, $category, $soje, $content)
 	{
 		try
 		{
-			$stmt = $this->db->prepare("SELECT * FROM keyword WHERE id=:id");
-			$stmt->execute(array(':id'=>$id));
-			$userRow=$stmt->fetch(PDO::FETCH_ASSOC);
-			for($i=0;$i<6;$i++)
-			{
-				if($userRow[$keywords[$i]]==NULL)
-				{
-					$stmt = $this->db->prepare("UPDATE keyword SET :keyname=:soje WHERE id=:id");
-					$stmt->execute(array(':id'=>$id,':soje'=>$soje,':keyname'=>$keywords[$i]));
-				}
-			}
+			$stmt = $this->db->prepare("INSERT INTO posts(memberID,category,soje,content) VALUES (:memberID, :category, :soje, :content)");
+			$stmt->execute(array(':memberID'=>$memberID,':category'=>$category,':soje'=>$soje,':content'=>$content));
 		}
 		catch(PDOException $e)
 		{
 			echo $e->getMessage();
 		}
+	}
+
+	public function edit_post($id, $memberID, $category, $soje, $content)
+	{
+		try
+		{
+			$stmt = $this->db->prepare("UPDATE posts SET memberID=:memberID,category=:category,soje=:soje,content=:content WHERE id=:id");
+			$stmt->execute(array(':id'=>$id,':memberID'=>$memberID,':category'=>$category,':soje'=>$soje,':content'=>$content));
+
+
+		}
+		catch(PDOException $e)
+		{
+			echo $e->getMessage();
+		}
+	}
+
+	public function delete_post($id)
+	{
+		try
+		{
+			$stmt = $this->db->prepare("DELETE FROM posts WHERE id=:id");
+			$stmt->execute(array(':id'=>$id));
+
+		}
+		catch(PDOException $e)
+		{
+			echo $e->getMessage();
+		}
+
+	}
+
+
+	public function get_num_subscriber($id)
+	{
+		try
+		{
+			$stmt = $this->db->prepare("SELECT * FROM subscription WHERE writer=:id");
+			$stmt->execute(array(':id'=>$id));
+			return $stmt->rowCount();
+		}
+		catch(PDOException $e)
+		{
+			echo $e->getMessage();
+		}
+	}
+
+	public function add_subscriber($subscriber, $writer)
+	{
+		try
+		{
+			$stmt = $this->db->prepare("INSERT INTO subscription VALUES(:subscriber,:writer)");
+			$stmt->execute(array(':subscriber'=>$subscriber,':writer'=>$writer));
+			return $stmt->rowCount();
+		}
+		catch(PDOException $e)
+		{
+			echo $e->getMessage();
+		}
+	}
+
+	public function delete_subscriber($subscriber, $writer)
+	{
+		try
+		{
+			$stmt = $this->db->prepare("DELETE FROM subscription WHERE subscriber=:subscriber AND writer=:writer");
+			$stmt->execute(array(':subscriber'=>$subscriber,':writer'=>$writer));
+			return $stmt->rowCount();
+		}
+		catch(PDOException $e)
+		{
+			echo $e->getMessage();
+		}
+	}
+
+	public function add_hit($id)
+	{
+		$stmt = $this->db->prepare("UPDATE posts SET hits=hits+1 WHERE id=:id");
+		$stmt->execute(array(':id'=>$id));
+
 	}
 
 	public function is_loggedin()

@@ -1,8 +1,8 @@
 <?php
 
 session_start();
-
-require_once 'dbconfig.php';
+require_once('user.php');
+$user = new USER();
 
 $id;
 
@@ -15,7 +15,7 @@ if(isset($_POST['find_id']))
 
 	try
 	{
-		$stmt = $DB_con->prepare("SELECT id FROM members WHERE name=:name and phone=:phone ");
+		$stmt = $user->runQuery("SELECT id FROM members WHERE name=:name and phone=:phone ");
                 $stmt->execute(array(':name'=>$name,':phone'=>$phone));
                 $row=$stmt->fetch(PDO::FETCH_ASSOC);
                 if($stmt->rowCount()==0)
@@ -33,9 +33,9 @@ if(isset($_POST['find_id']))
         {
         echo $e->getMessage();
         }
-	
 
-}	
+
+}
 
 
 if(isset($_POST['find_pw']))
@@ -69,8 +69,8 @@ if(isset($_POST['find_pw']))
          {
          	echo $e->getMessage();
          }
-	
-}	
+
+}
 
 
 if(isset($_POST['confirm']))
@@ -102,7 +102,7 @@ if(isset($_POST['confirm']))
           	echo $e->getMessage();
           }
 
-}	
+}
 
 
 
@@ -113,7 +113,7 @@ if(isset($_POST['confirm']))
 <html>
 	<head>
 		<link rel="stylesheet" type="text/css" href="../css/find_ID_PW.css">
-		
+
 
 	</head>
 	<body>
@@ -126,7 +126,7 @@ if(isset($_POST['confirm']))
 						<ul>
 							<li><span>이름</span><input name="name" type="text" text=""> </li>
 							<li><span>핸드폰번호</span><input name="phone" type="tel" text=""> </li>
-						</ul>						
+						</ul>
 					<p><button class="find" id="find_id" name="find_id"><a>아이디찾기</a></button></p>
 					</form>
 				</div>
@@ -150,15 +150,15 @@ if(isset($_POST['confirm']))
 						</ul>
 						<p><span><button class="find" name="confirm"><a>확인</a></button></span></p>
 					</form>
-					
+
 					<?php
 					}
-					
+
 					if(isset($alarm))
                                 	{
-                                        
+
 					echo $alarm;
-					
+
                                 	} ?>
 				</div>
 			</div>
