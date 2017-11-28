@@ -1,0 +1,24 @@
+ul{list-style: none;}
+li{list-style: none;}
+a{text-decoration: none; color: #000;}
+p{margin: 0px;}
+
+.header{width: auto; text-align: center;}
+.header .btnArea {width: 100%; height: 40px;}
+.header ul li{
+   float: right; 
+   padding: 3px 7px; 
+   border-radius: 5px;  
+   margin: 0px 5px; 
+   border: 1px solid #666666;
+}
+.title{height: 80px; margin: 20px 0px; border-bottom: 3px solid #333333; text-align: center;}
+#best{}
+.category{clear: both; position: relative; top: 50px;}
+.content{width: 100%; margin-top: 50px; }
+div .list{width: 1050px; height: auto; margin: 0px auto}
+div .post{float: left; width: 200px; height: auto; padding: 5px 10px; margin: 0px 20px; border: 1px solid #666666; border-radius: 5px; background: none; text-align: center;}
+div .post:hover {background-color: #ddd;}
+div .cate{float: left; width: 100px; height: auto; margin: 10px 20px; border: 1px solid #666666; border-radius: 5px; background: none; text-align: center;}
+h3, p {word-break:break-all;}
+h3{margin: 15px 10px}
