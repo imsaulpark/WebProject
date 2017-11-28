@@ -1,0 +1,172 @@
+<?php
+
+require_once 'session.php';
+require_once 'user.php';
+$user = new USER();
+
+$last_day = $_SESSION['last_day']; //총 날짜 수
+$start_day = $_SESSION['start_day']; //시작 요일
+$total_week = $_SESSION['total_week']; //총 몇주
+$last_week = $_SESSION['last_week']; //마지막주 끝나는 요일
+$this_mon = $_SESSION['this_mon']; //이번달
+$this_year = $_SESSION['this_year']; //이번년
+$_SESSION['state']='date';
+  //$next_mon = date("Y-m", strtotime($this_mon.' +1 month'));
+
+//echo $_SESSION['count']."\n";
+//echo $_SESSION['last_day']."\n";
+//echo $_SESSION['start_day']."\n";
+//echo $_SESSION['total_week']."\n";
+//echo $_SESSION['last_week']."\n";
+//echo $_SESSION['this_mon']."\n";
+//echo $_SESSION['this_year']."\n";
+
+//$n_m= date("Y-m-d",mktime(0,0,0,$s_m+1,$s_d,$s_Y)); // 다음달 (빠뜨린 부분 추가분이에요)
+//$p_m= date("Y-m-d",mktime(0,0,0,$s_m-1,$s_d,$s_Y)); // 이전달
+
+if(isset($_POST['prevBtn']))
+{
+
+	$_SESSION['count']--;
+	changeDate($user);
+  //$_SESSION['last_week'] =date("w",strtotime(date("Y-m",strtotime($this_mon.' -1 month') )."-".$_SESSION['last_day']));
+	//$_SESSION['this_mon'] = date("m",strtotime(date("Y-m",strtotime($_SESSION['count'].' month'))));
+  //$_SESSION['this_mon']= $this_mon-1;
+  //if($_SESSION['this_mon']==0)
+    //$_SESSION['this_mon']=12;
+
+}
+
+if(isset($_POST['nextBtn']))
+{
+
+	$_SESSION['count']++;
+	changeDate($user);
+  //$_SESSION['last_week'] =date("w",strtotime(date("Y-m",strtotime($this_mon.' -1 month') )."-".$_SESSION['last_day']));
+	//$_SESSION['this_mon'] = date("m",strtotime(date("Y-m",strtotime($_SESSION['count'].' month'))));
+  //$_SESSION['this_mon']= $this_mon-1;
+  //if($_SESSION['this_mon']==0)
+    //$_SESSION['this_mon']=12;
+
+}
+
+function changeDate($user){
+
+	$_SESSION['last_day']=date("t",strtotime("now ".$_SESSION['count']." month"));
+  $_SESSION['start_day']=date("w", strtotime(date("Y-m",strtotime("now".$_SESSION['count']."month") )."-01"));
+  $_SESSION['total_week'] =ceil(($_SESSION['last_day']+$_SESSION['start_day'])/7);
+  $_SESSION['last_week']=date("w",strtotime(date("Y-m",strtotime("now".$_SESSION['count']." month") )."-".$_SESSION['last_day'] ));
+	$_SESSION['this_year'] = date("Y",strtotime("now ".$_SESSION['count']." month"));
+  $_SESSION['this_mon']= date("m",strtotime("now ".$_SESSION['count']." month"));
+
+	$user->redirect('calendar.php');
+}
+
+
+//여따가 배열로 checkbox용 php 하나 해놓고 만들면 될듯? 아니면 받아오는 함수 만ㄷ르어야되는데 내가 잘 모름ㅠ php서버 어디서
+$arr = array("A","B","C");
+function getCheckBox(){ //배열로 database에서 받아서 array에 넣고 동적으로 할당
+    $str ='';
+    $sojes=array("soje1"=>1,"soje2"=>2, "soje3"=>3);
+    while(list($k,$v)=each($sojes)){
+        ?><br><?php echo $k ?><input type="checkbox" value="<?php echo $v ?>" name="soje[]"> <?php
+    }
+    return $str;
+}
+
+?>
+
+<!DOCTYPE>
+<HTML>
+<head>
+</head>
+    <body>
+        <?php getCheckBox(); ?>
+        <table width='500' cellpadding='0' cellspacing="1" bgcolor="#999999">
+           <tr>
+                <td height="50" align="center" bgcolor="#FFFFFF" colspan="7">
+                  <form method="post">
+                    <button class="btn" name="prevBtn" id="calendar"><a><</a></button>
+										<?php echo $_SESSION['this_year']."년 ".$_SESSION['this_mon']."월" ?>
+									 <button class="btn" name="nextBtn" id="calendar"><a>></a></button>
+                  </form>
+                </td>
+            </tr>
+          <tr>
+                <td height="30" align="center" bgcolor="#DDDDDDD">일</td>
+                <td align="center" bgcolor="#DDDDDDD">월</td>
+                <td align="center" bgcolor="#DDDDDDD">화</td>
+                <td align="center" bgcolor="#DDDDDDD">수</td>
+                <td align="center" bgcolor="#DDDDDDD">목</td>
+                <td align="center" bgcolor="#DDDDDDD">금</td>
+                <td align="center" bgcolor="#DDDDDDD">토</td>
+            </tr>
+
+    <?php
+
+    $day=1;
+    // 6. 총 주 수에 맞춰서 세로줄 만들기
+    for($i=1; $i <= $total_week; $i++){?>
+
+        <tr>
+        <?php
+        // 7. 총 가로칸 만들기
+        for ($j=0; $j<7; $j++){
+        ?>
+        <td width="80" height="80" align="center" bgcolor="#FFFFFF">
+        <?php
+        // 8. 첫번째 주이고 시작요일보다 $j가 작거나 마지막주이고 $j가 마지막 요일보다 크면 표시하지 않아야하므로
+        //    그 반대의 경우 -  ! 으로 표현 - 에만 날자를 표시한다.
+        if (!(($i == 1 && $j < $start_day) || ($i == $total_week && $j > $last_week))){
+
+            if($j == 0){
+                // 9. $j가 0이면 일요일이므로 빨간색
+               print "<font color='#FF0000'>";
+            }else if($j == 6){
+                // 10. $j가 0이면 일요일이므로 파란색
+                print "<font color='#0000FF'>";
+            }else{
+                // 11. 그외는 평일이므로 검정색
+                echo "<font color='#000000'>";
+            }
+
+            // 12. 오늘 날짜면 굵은 글씨
+            if($day == date("j")){
+                print "<b>";
+            }
+
+            // 13. 날짜 출력
+            echo $day;
+						print "<br>";
+
+						$stmt=$user->runQuery("SELECT * FROM posts WHERE extract(YEAR_MONTH FROM timestamp)=:yearmonth AND extract(DAY FROM timestamp)=:day");
+						$stmt->execute(array(':yearmonth'=>$this_year.$this_mon,':day'=>$day));
+						if($stmt->rowCount()!=0){
+							print "<a href='./post_list.php?day=".$day."'>";
+							echo $stmt->rowCount()."posts";
+							print "</a>";
+						}
+						else {
+							print "<br>";
+						}
+
+            if($day == date("j")){
+                print "</b>";
+            }
+
+            print "</font>";
+
+
+            $day++;
+        }
+        ?>
+        </td>
+        <?php } ?>
+        </tr>
+    <?php } ?>
+       </table>
+
+
+    </body>
+
+</HTML>

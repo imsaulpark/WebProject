@@ -13,7 +13,35 @@
 		$user->redirect('index.php');
 	}
 
+	if(isset($_GET['calendarBtn']))
+	{
+
+		$_SESSION['count']=0;
+		$_SESSION['last_day'] = date("t", time()); //총 요일 수
+		$_SESSION['start_day'] = date("w", strtotime(date("Y-m")."-01")); //시작 요일
+		$_SESSION['total_week'] = ceil(($_SESSION['last_day'] + $_SESSION['start_day'] )/7); // 총 요일
+		$_SESSION['last_week'] = date('w',strtotime(date("Y-m")."-".$_SESSION['last_day'] ));
+		$_SESSION['this_mon'] = date("m",strtotime(date("Y-m",strtotime('+0 month'))));
+		$_SESSION['this_year'] = date("Y",strtotime(date("Y-m",strtotime('+0 month'))));
+
+  	//$_SESSION['last_day']=date("t",strtotime("now "."-12"." month"));
+		//$_SESSION['start_day'] = date("w", strtotime(date("Y-m",strtotime("now"."-12"."month") )."-01"));
+	  //$_SESSION['this_mon']= date("m",strtotime("now "."-12"." month"));
+	  //$_SESSION['last_week'] = date("w",strtotime(date("Y-m",strtotime("now"."-12"." month") )."-".$_SESSION['last_day'] ));
+		//echo $_SESSION['last_day'];
+		//echo $_SESSION['start_day'];
+		//echo $_SESSION['this_mon'];
+		//echo strtotime('');
+		//echo date("Y-m-d",strtotime("now -1 month"));
+		//echo $_SESSION['this_year'];
+		//echo $_SESSION['last_day'];
+		//echo $_SESSION['start_day'];
+		//echo $_SESSION['total_week'];
+		//echo $_SESSION['last_week'];
+		$user->redirect('calendar.php');
+	}
 ?>
+
 
 <!doctype html>
 <meta charset="utf-8">
@@ -35,7 +63,7 @@
 			<div class="content">
 				<div class="leftBox">
 					<form class="loginForm">
-						<span>저자/작명 부분</span><button class="btn" id="calendar"><a>달력</a></button>
+						<span>저자/작명 부분</span><button class="btn" name="calendarBtn" id="calendar"><a>달력</a></button>
 						<div></div>
 						<?php
 

@@ -181,12 +181,12 @@ class USER
 		}
 	}
 
-	public function write_post($memberID, $category, $soje, $content)
+	public function write_post($memberID, $category, $soje, $title, $content)
 	{
 		try
 		{
-			$stmt = $this->db->prepare("INSERT INTO posts(memberID,category,soje,content) VALUES (:memberID, :category, :soje, :content)");
-			$stmt->execute(array(':memberID'=>$memberID,':category'=>$category,':soje'=>$soje,':content'=>$content));
+			$stmt = $this->db->prepare("INSERT INTO posts(memberID,category,soje,title,content) VALUES (:memberID, :category, :soje, :title,:content)");
+			$stmt->execute(array(':memberID'=>$memberID,':category'=>$category,':soje'=>$soje,':title'=>$title,':content'=>$content));
 		}
 		catch(PDOException $e)
 		{
@@ -194,14 +194,12 @@ class USER
 		}
 	}
 
-	public function edit_post($id, $memberID, $category, $soje, $content)
+	public function edit_post($id, $memberID, $category, $soje, $title, $content)
 	{
 		try
 		{
-			$stmt = $this->db->prepare("UPDATE posts SET memberID=:memberID,category=:category,soje=:soje,content=:content WHERE id=:id");
-			$stmt->execute(array(':id'=>$id,':memberID'=>$memberID,':category'=>$category,':soje'=>$soje,':content'=>$content));
-
-
+			$stmt = $this->db->prepare("UPDATE posts SET memberID=:memberID,category=:category,soje=:soje,title=:title,content=:content WHERE id=:id");
+			$stmt->execute(array(':id'=>$id,':memberID'=>$memberID,':category'=>$category,':soje'=>$soje,':title'=>$title,':content'=>$content));
 		}
 		catch(PDOException $e)
 		{

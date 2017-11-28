@@ -16,10 +16,9 @@ if(isset($_POST['loginBtn']))
         $id = $_POST['id'];
         $pw = $_POST['pw'];
 
-
         if($user->login($id,$pw))
         {
-		$_SESSION["id"]=$id;
+		            $_SESSION["id"]=$id;
                 $user->redirect('mypage.php');
         }
         else
