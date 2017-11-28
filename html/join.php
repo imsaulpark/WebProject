@@ -1,6 +1,9 @@
 <?php
 
-        require_once 'dbconfig.php';
+        session_start();
+        require_once('user.php');
+        $user = new USER();
+
 
         if($user->is_loggedin()!="")
         {
@@ -61,7 +64,7 @@
  	        else{
 			try
                         {
-                                $stmt = $DB_con->prepare("SELECT id FROM members WHERE ID=:id");
+                                $stmt = $user->runQuery("SELECT id FROM members WHERE id=:id");
                                 $stmt->execute(array(':id'=>$id));
                                 $row=$stmt->fetch(PDO::FETCH_ASSOC);
 
@@ -108,20 +111,20 @@
 
                                 <?php
                                 if(isset($error))
-                                {       
+                                {
                                         foreach($error as $error)
-                                        {       
+                                        {
                                                 ?>
-                                                <div class="alert alert-danger">   
+                                                <div class="alert alert-danger">
                                                         <i class="glyphicon glyphicon-warning-sign"></i> &nbsp; <?php echo $error; ?>
                                                 </div>
                                                 <?php
                                         }
                                 }
                                 else if(isset($_GET['joined']))
-                                {       
+                                {
                                         ?>
-                                        <div class="alert alert-info">                                        <i class="glyphicon glyphicon-log-in"></i> &nbsp; Successfully registered <a href='index.php'>login</a> here                   
+                                        <div class="alert alert-info">                                        <i class="glyphicon glyphicon-log-in"></i> &nbsp; Successfully registered <a href='index.php'>login</a> here
                                         </div>
                                         <?php
                                 }

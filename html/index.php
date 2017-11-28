@@ -2,9 +2,9 @@
 
 session_start();
 
-require_once 'dbconfig.php';
+require_once("user.php");
 
-
+$user = new USER();
 
 if($user->is_loggedin()!="")
 {
@@ -18,7 +18,7 @@ if(isset($_POST['loginBtn']))
 
 
         if($user->login($id,$pw))
-        {       
+        {
 		$_SESSION["id"]=$id;
                 $user->redirect('mypage.php');
         }
@@ -40,7 +40,7 @@ if(isset($_POST['loginBtn']))
 		<div class="header">
 			<div class="btnArea">
 				<ul>
-					<li><a href="">MAIN</a></li> 
+					<li><a href="">MAIN</a></li>
 					<li><a href="">MY</a></li>
 				</ul>
 			</div>
