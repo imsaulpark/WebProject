@@ -3,14 +3,14 @@ li{list-style: none;}
 a{text-decoration: none; color: #000;}
 p{margin: 0px; }
 
-.bodyInbox {width: 100%; height: 700px; margin: 0 auto;}
+.bodyInbox {width: 100%; height: 1000px; margin: 0 auto;}
 .header {float: right; width: 100px; height: 150px; margin-top: 20px;}
 .header .btnArea {float: left; width: 50px; }
 .header ul li{
-	float: left; 
-	padding: 3px 7px; 
-	border-radius: 5px;  
-	margin: 0px 5px; 
+	float: left;
+	padding: 3px 7px;
+	border-radius: 5px;
+	margin: 0px 5px;
 	border: 1px solid #666666;
 	background-color: rgba(10,10,10,.68);
 }
@@ -22,13 +22,13 @@ p{margin: 0px; }
 
 .rightBody{clear: both;}
 .rightBox form p{width: 80px; margin: 20px auto;}
-.rightBox form div{width: 170px; margin: 20px auto; padding: 5px 10px; 
-	border: 1px solid #666666; border-radius: 5px; font-size: 15px; 
+.rightBox form div{width: 170px; margin: 20px auto; padding: 5px 10px;
+	border: 1px solid #666666; border-radius: 5px; font-size: 15px;
 	text-align: center; background-color: rgba(10,10,10,.68);
 }
 
 
-#loginBtn{padding: 5px 10px; width: 80px; border: 1px solid #666666; border-radius: 5px; 
+#loginBtn{padding: 5px 10px; width: 80px; border: 1px solid #666666; border-radius: 5px;
 	font-size: 17px; text-align: center; font-weight: 300; color: #fff;
 	background-color: rgba(10,10,10,.68);
 }
@@ -56,7 +56,7 @@ button:hover {
 button:active {
   background-color: #666;
 }
-#body {background-image:url(../img/baby.jpg); background-size: cover; 
+#body {background-image:url(../img/baby.jpg); background-size: cover;
 	font-family: arial, helvetica, sans-serif;}
 input::
 input::placeholder {

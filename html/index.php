@@ -37,7 +37,7 @@ if(isset($_POST['loginBtn']))
 		<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.4.0/css/font-awesome.min.css">
 	</head>
 	<body id="body">
-		
+
 		<div class="bodyInbox">
 			<div class="content">
 				<div class="leftBox">
@@ -55,7 +55,7 @@ if(isset($_POST['loginBtn']))
 						<p class="p2">당신만의 책을 <br/>요리하세요!</p>
 						<br/><br/>
 						<form class="loginForm" method="post">
-							
+
 								<ul>
 									<li><i class="fa fa-user" aria-hidden="true"></i><input class="id_input" name="id" type="text" placeholder="ID"> </li>
 									<li><i class="fa fa-key"></i><input class="pw_input" name="pw" type="password" placeholder="Password"> </li>
@@ -63,7 +63,7 @@ if(isset($_POST['loginBtn']))
 								<br/><br/>
 								<p><button name="loginBtn" id="loginBtn">Log In</button></p>
 								<div><a href="./join.php">회원가입</a> / <a href="javascript:;" onclick="find_id_pw();">ID&PW찾기</a> </div>
-							
+
 						</form>
 					</div>
 				</div>

@@ -4,7 +4,7 @@ class Database
     private $host = "localhost";
     private $db_name = "bookchef";
     private $username = "root";
-    private $password = "1234";
+    private $password = "qkrtmddn";
     public $conn;
 
     public function dbConnection()
