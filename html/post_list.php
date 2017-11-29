@@ -11,6 +11,11 @@ if(isset($_POST['postBtn']))
 $stmt=$user->runQuery("SELECT * FROM posts WHERE extract(YEAR_MONTH FROM timestamp)=:yearmonth AND extract(DAY FROM timestamp)=:day");
 $stmt->execute(array(':yearmonth'=>$_SESSION['this_year'].$_SESSION['this_mon'],':day'=>$_GET['day']));
 
+if($stmt->rowCount()<1)
+{
+  if($_SESSION['state']=='date')
+    $user->redirect('mypage.php');
+}
  ?>
 
 <!doctype html>

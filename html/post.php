@@ -3,12 +3,6 @@ require_once 'session.php';
 require_once 'user.php';
 $user = new USER();
 
-if(isset($_POST['deleteBtn']))
-{
-  $day = date("d",strtotime($userRow['timestamp']));
-  $user->delete_post($userRow['id']);
-  $user->redirect('post_list.php?day='.$day);
-}
 
 $stmt=$user->runQuery("SELECT * FROM posts WHERE id=:id");
 $stmt->execute(array(':id'=>$_GET['id']));
@@ -18,6 +12,18 @@ if($_SESSION['id']!=$userRow['memberID'])
 {
   $user->add_hit($userRow['id']);
   $userRow['hits']+=1;
+}
+
+if(isset($_POST['deleteBtn']))
+{
+  $day = date("d",strtotime($userRow['timestamp']));
+  $user->delete_post($userRow['id']);
+  $user->redirect('post_list.php?day='.$day);
+}
+
+if(isset($_POST['editBtn']))
+{
+  $user->redirect('write.php?id='.$userRow['id']);
 }
 
  ?>
@@ -54,8 +60,13 @@ if($_SESSION['id']!=$userRow['memberID'])
             </div>
             <div class="rightBox">
               <form method="post">
-               <button class="btn" name="editBtn"><a>수정</a></button>
-               <button class="btn" name="deleteBtn"><a>삭제</a></button>
+                <?php
+                if($_SESSION['id']==$userRow['memberID'])
+                {
+                  print '<button class="btn" name="editBtn"><a>수정</a></button>';
+                  print '<button class="btn" name="deleteBtn"><a>삭제</a></button>';
+                }
+                ?>
              </form>
                <div class="empty"></div>
 

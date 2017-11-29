@@ -51,7 +51,7 @@ if(isset($_POST['find_pw']))
 	try
 	{
 		echo $phone;
-        	$stmt = $DB_con->prepare("SELECT id FROM members WHERE id=:id and name=:name and phone=:phone ");
+        	$stmt = $user->runQuery("SELECT id FROM members WHERE id=:id and name=:name and phone=:phone ");
                 $stmt->execute(array(':id'=>$id,':name'=>$name,':phone'=>$phone));
                 $row=$stmt->fetch(PDO::FETCH_ASSOC);
                 if($stmt->rowCount()==0)

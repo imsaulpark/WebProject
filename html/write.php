@@ -1,3 +1,14 @@
+<?php
+require_once 'session.php';
+require_once 'user.php';
+$user = new USER();
+
+$stmt=$user->runQuery("SELECT * FROM posts WHERE id=:id");
+$stmt->execute(array(':id'=>$_GET['id']));
+$userRow=$stmt->fetch(PDO::FETCH_ASSOC);
+
+?>
+
 <!doctype html>
 <meta charset="utf-8">
 <html>
@@ -9,21 +20,29 @@
 			<div class="header">
 				<h1>글 쓰는 중...</h1>
 			</div>
+
 			<div class="content">
-				<form>
+				<form method="post">
 					<ul>
-						<li><span>글 제목</span><input name="title" type="text" text="" placeholder="글 제목을 입력하세요."> </li>
-						<li><span>소제</span>
-							<select name="category">
-							    <option value="소제1">소제 1</option>
-							    <option value="소제2">소제 2</option>
-							    <option value="소제3">소제 3</option>
-							    <option value="소제4">소제 4</option>
-							    <option value="소제5">소제 5</option>
-							    <option value="소제6">소제 6</option>
+						<li><span>글 제목</span>
+							<?php
+								print '<input name="title" type="text" value="'.$userRow['title'].'" placeholder="글 제목을 입력하세요."> </li> '
+							?>
+						<li><span>카테고리 | 소제</span>
+							<select name="soje" onchange="this.form.elements['save'].click();" >
+								 <?php
+										$soje_stmt=$user->get_soje($_SESSION['id']);
+										for($i=0;$i<$soje_stmt->rowCount();$i++)
+										{
+											 $soje_row = $soje_stmt->fetch(PDO::FETCH_ASSOC);?>
+
+											 <option value = <?php $soje_row['soje'] ?>  > <?php echo $soje_row['category']." | ".$soje_row['soje'] ?> </option>;
+											 <?php
+										}
+								 ?>
+
 							</select>
 						</li>
-						<li><span>분야</span><span id="auto">소제에 따른 분야 자동선택</span></li>
 						<div id="content"><span>글 내용</span></div>
 						<div id="textarea"><textarea name="content" placeholder="글 내용을 입력하세요."></textarea></div>
 					</ul>

@@ -138,6 +138,21 @@ class USER
 
 	}
 
+	public function get_category($id,$soje)
+	{
+		try
+		{
+			$stmt = $this->db->prepare("SELECT * FROM keyword WHERE id=:id AND soje=:soje");
+			$stmt->execute(array(':id'=>$id,':soje'=>$soje));
+			$userRow=$stmt->fetch(PDO::FETCH_ASSOC);
+			return $userRow['category'];
+		}
+		catch(PDOException $e)
+		{
+			echo $e->getMessage();
+		}
+	}
+
 	public function get_num_post($id)
 	{
 		try
