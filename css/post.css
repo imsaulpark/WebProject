@@ -6,10 +6,10 @@ p{margin: 0px; }
 .header{width: auto; height: 40px; margin: 0px auto; text-align: center;}
 .header .btnArea {width: 100%; height: 40px;}
 .header ul li{
-   float: right; 
-   padding: 3px 7px; 
-   border-radius: 5px;  
-   margin: 0px 5px; 
+   float: right;
+   padding: 3px 7px;
+   border-radius: 5px;
+   margin: 0px 5px;
    border: 1px solid #666666;
 }
 #title{height: 130px; margin: 20px 0px; border-bottom: 3px solid #333333; }
@@ -20,6 +20,7 @@ div .empty{height: 300px;}
 div .cate{float: left; margin-top: 20px; margin-left: 10px;}
 div .count{float: right; margin-top: 20px; margin-right: 10px;}
 div .context{margin-left: 10px;}
+div .time{clear:both; float: left; margin-left: 10px;}
 
 h2 {word-break:break-all;}
 

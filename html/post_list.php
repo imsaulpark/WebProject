@@ -3,6 +3,11 @@ require_once 'session.php';
 require_once 'user.php';
 $user = new USER();
 
+if(isset($_POST['postBtn']))
+{
+  $user->redirect('post.html');
+}
+
 $stmt=$user->runQuery("SELECT * FROM posts WHERE extract(YEAR_MONTH FROM timestamp)=:yearmonth AND extract(DAY FROM timestamp)=:day");
 $stmt->execute(array(':yearmonth'=>$_SESSION['this_year'].$_SESSION['this_mon'],':day'=>$_GET['day']));
 
@@ -40,7 +45,7 @@ $stmt->execute(array(':yearmonth'=>$_SESSION['this_year'].$_SESSION['this_mon'],
                 for($i=0;$i<$stmt->rowCount();$i++)
                 {
                   $userRow=$stmt->fetch(PDO::FETCH_ASSOC);
-                  print "<div class='list' onclick='gotolist();'";
+                  print "<button class='btn' onclick=\"location.href='post.php?id=".$userRow['id']."'\" >";
                   print "<h1>";
                   print "<b>";
                   echo $userRow['title'];
@@ -51,7 +56,7 @@ $stmt->execute(array(':yearmonth'=>$_SESSION['this_year'].$_SESSION['this_mon'],
                   echo " ".$userRow['soje'];
                   print "<br>";
                   echo $_SESSION['id'];
-                  print "</div>";
+                  print "</button>";
                 }
 
                ?>
