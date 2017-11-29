@@ -3,29 +3,62 @@ li{list-style: none;}
 a{text-decoration: none; color: #000;}
 p{margin: 0px; }
 
-.bodyInbox {width: 900px; margin: 0 auto;}
-.header{width: 100%; height: 60px;}
-.header .btnArea {float: right; width: 170px; }
+.bodyInbox {width: 100%; height: 700px; margin: 0 auto;}
+.header {float: right; width: 100px; height: 150px; margin-top: 20px;}
+.header .btnArea {float: left; width: 50px; }
 .header ul li{
 	float: left; 
 	padding: 3px 7px; 
 	border-radius: 5px;  
 	margin: 0px 5px; 
 	border: 1px solid #666666;
+	background-color: rgba(10,10,10,.68);
 }
-.header ul li a{color: white;}
-.bodyInbox .content{width: 100%; height: 100%; clear:both; margin-top: 50px; }
+.header ul li a{color: #fff;}
+.bodyInbox .content{width: 100%; height: 100%; clear:both; margin-top: 0px; }
 
-.bodyInbox .content .leftBox{float: left; width: 450px;  padding: 40px 0px; box-sizing: border-box;}
-.leftBox div{width: 170px; margin: 20px auto;}
-.leftBox p{z-index: -1; width: 80px;  border: 1px solid #666666; border-radius: 5px; text-align: center; margin: 20px auto;}
-#loginBtn{z-index: 1; padding: 5px 10px; border: none; background: none; text-align: center;}
-#loginBtn a{font-size: 17px}
-.leftBox ul{    width: 242px;    margin: 0 auto;}
-.leftBox ul li input{border: 1px solid #666; height: 24px; width: 150px; margin: 5px; }
-.leftBox ul li span{width: 80px; display: inline-block;}
-.bodyInbox .content .rightBox{float: right; width: 450px;padding: 40px 0px; box-sizing: border-box;}
-.rightBox .p1{text-align: center; font-size: 40px; color: white;}
-.rightBox .p2{text-align: center; font-size: 30px; margin-top: 30px; color: white;}
-.leftBox form fieldset {background-color: white}
-#body {background-image:url(../img/background.jpg); background-size: 110% 200%; }
+.bodyInbox .content .leftBox{float: left; width: 50%; height: 400px; padding-top: 100px; box-sizing: border-box;
+	}
+
+.rightBody{clear: both;}
+.rightBox form p{width: 80px; margin: 20px auto;}
+.rightBox form div{width: 170px; margin: 20px auto; padding: 5px 10px; 
+	border: 1px solid #666666; border-radius: 5px; font-size: 15px; 
+	text-align: center; background-color: rgba(10,10,10,.68);
+}
+
+
+#loginBtn{padding: 5px 10px; width: 80px; border: 1px solid #666666; border-radius: 5px; 
+	font-size: 17px; text-align: center; font-weight: 300; color: #fff;
+	background-color: rgba(10,10,10,.68);
+}
+
+ul{ padding-left: 0px; width: 190px; margin: 0 auto;}
+ul li input{background: transparent; border: none; height: 24px; width: 150px; margin: 5px; color: #ddd;}
+a{color: #fff; font-weight: 500;}
+ul li{border-bottom: 1px solid #fff;}
+
+
+.bodyInbox .content .rightBox{float: right; width: 50%; box-sizing: border-box; height: 100%;
+background-color: rgba(10,10,10,.68);}
+.rightBox .p1{text-align: center; font-size: 40px; font-weight: 500; color: #eee;}
+.rightBox .p2{text-align: center; font-size: 30px; margin-top: 30px; font-weight: 500; color: #eee;}
+
+i{color: white;}
+
+input:focus, button:focus {
+  outline: none;
+}
+button:hover {
+  background-color: #fff;
+}
+
+button:active {
+  background-color: #666;
+}
+#body {background-image:url(../img/baby.jpg); background-size: cover; 
+	font-family: arial, helvetica, sans-serif;}
+input::
+input::placeholder {
+  color: rgba(255,255,255,.4);
+}
