@@ -51,7 +51,7 @@ if(isset($_POST['find_pw']))
 	try
 	{
 		echo $phone;
-        	$stmt = $DB_con->prepare("SELECT id FROM members WHERE id=:id and name=:name and phone=:phone ");
+        	$stmt = $user->runQuery("SELECT id FROM members WHERE id=:id and name=:name and phone=:phone ");
                 $stmt->execute(array(':id'=>$id,':name'=>$name,':phone'=>$phone));
                 $row=$stmt->fetch(PDO::FETCH_ASSOC);
                 if($stmt->rowCount()==0)
@@ -141,15 +141,10 @@ if(isset($_POST['confirm']))
 					</form>
 
 					<?php
-					if(isset($finding)){?>
-					<form class="input", method="post">
-						<ul>
-							<p>새로운 비밀번호를 등록하세요.</p>
-							<li><span>비밀번호</span><input name="pw1" type="password" text=""> </li>
-							<li><span>비밀번호 확인</span><input name="pw2" type="password" text=""> </li>
-						</ul>
-						<p><span><button class="find" name="confirm"><a>확인</a></button></span></p>
-					</form>
+					if(isset($finding)){
+						echo("<script>location.href='./newPW.php';</script>");
+						?>
+					
 
 					<?php
 					}
@@ -163,5 +158,6 @@ if(isset($_POST['confirm']))
 				</div>
 			</div>
 		</div>
+		<script type="text/javascript" src="../js/find.js"></script>
 	</body>
 </html>
