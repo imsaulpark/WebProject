@@ -68,7 +68,7 @@ if($stmt->rowCount()<1)
              </div>
             </div>
             <div class="rightBox">
-               <a class="write" href="./write.html">글 쓰기</a>
+               <a class="write" href="./write.php">글 쓰기</a>
             </div>
          </div>
       </div>

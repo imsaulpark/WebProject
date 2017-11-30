@@ -44,7 +44,8 @@ $userRow=$stmt->fetch(PDO::FETCH_ASSOC);
 							</select>
 						</li>
 						<div id="content"><span>글 내용</span></div>
-						<div id="textarea"><textarea name="content"  placeholder="글 내용을 입력하세요."><?php echo $userRow['contets'] ?></textarea></div>
+					
+						<div id="textarea"><textarea name="content"  placeholder="글 내용을 입력하세요."> <?php echo $userRow['content'] ?></textarea></div>
 					</ul>
 					<p>
 						<button class="btn" name="save" id="">글 올리기</button>
