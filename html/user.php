@@ -47,6 +47,29 @@ class USER
 
 	}
 
+	public function edit_profile($id,$pw,$phone,$name,$nickname,$intro)
+	{
+		try
+		{
+			$hashed_pw = password_hash($pw, PASSWORD_DEFAULT);
+
+			$stmt = $this->db->prepare("UPDATE members SET pw=:pw, phone=:phone, name=:name, nickname=:nickname, intro=:intro WHERE id=:id");
+			$stmt->bindparam(":id", $id);
+			$stmt->bindparam(":pw", $hashed_pw);
+			$stmt->bindparam(":phone", $phone);
+			$stmt->bindparam(":name", $name);
+			$stmt->bindparam(":nickname", $nickname);
+			$stmt->bindparam(":intro", $intro);
+			$stmt->execute();
+
+			return $stmt;
+		}
+		catch(PDOException $e)
+		{
+			echo $e->getMessage();
+		}
+	}
+
 	public function login($id,$pw)
 	{
 		try
@@ -285,6 +308,12 @@ class USER
 		$stmt = $this->db->prepare("UPDATE posts SET hits=hits+1 WHERE id=:id");
 		$stmt->execute(array(':id'=>$id));
 
+	}
+
+	public function sign_out($id){
+
+			$stmt = $this->db->prepare("DELETE FROM members WHERE id=:id");
+			$stmt->execute(array(':id'=>$id));
 	}
 
 	public function is_loggedin()

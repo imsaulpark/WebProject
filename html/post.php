@@ -38,8 +38,8 @@ if(isset($_POST['editBtn']))
       <div class="header">
          <div class="btnArea">
             <ul>
-               <li><a href="mypage.html">MY</a></li>
-               <li><a href="mainpage.html">MAIN</a></li>
+               <li><a href="mypage.php">MY</a></li>
+               <li><a href="mainpage.php">MAIN</a></li>
                <li><a href="index.html" onclick="logout()">LogOut</a></li>
             </ul>
          </div>

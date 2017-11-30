@@ -28,8 +28,8 @@ if($stmt->rowCount()<1)
       <div class="header">
          <div class="btnArea">
             <ul>
-               <li><a href="mypage.html">MY</a></li>
-               <li><a href="mainpage.html">MAIN</a></li>
+               <li><a href="mypage.php">MY</a></li>
+               <li><a href="mainpage.php">MAIN</a></li>
                <li><a href="index.html" onclick="logout()">LogOut</a></li>
             </ul>
          </div>
@@ -68,7 +68,10 @@ if($stmt->rowCount()<1)
              </div>
             </div>
             <div class="rightBox">
-               <a class="write" href="./write.php">글 쓰기</a>
+              <?php
+                  if($_GET['day'] == date("j",strtotime("now")))
+                    print '<a class="write" href="./write.php">글 쓰기</a>';
+               ?>
             </div>
          </div>
       </div>

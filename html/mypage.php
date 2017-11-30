@@ -55,8 +55,8 @@
 				<div class="btnArea">
 					<ul>
  				                <li><a href="logout.php?logout=true">Sign Out</a></li>
-						<li><a href="">MAIN</a></li>
-						<li><a href="">수정</a></li>
+						<li><a href="mainpage.php">MAIN</a></li>
+						<li><a href="edit.php">수정</a></li>
 					</ul>
 				</div>
 			</div>
