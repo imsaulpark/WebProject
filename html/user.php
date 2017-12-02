@@ -176,6 +176,21 @@ class USER
 		}
 	}
 
+	public function get_all_category()
+	{
+			try
+			{
+				$stmt = $this->db->prepare("SELECT * FROM category");
+				$stmt->execute();
+				return $stmt;
+			}
+			catch(PDOException $e)
+			{
+				echo $e->getMessage();
+			}
+
+	}
+
 	public function get_num_post($id)
 	{
 		try
@@ -212,6 +227,20 @@ class USER
 			$stmt->execute(array(':id'=>$id));
 			$userRow=$stmt->fetch(PDO::FETCH_ASSOC);
 			return $userRow;
+		}
+		catch(PDOException $e)
+		{
+			echo $e->getMessage();
+		}
+	}
+
+	public function get_best_post()
+	{
+		try
+		{
+			$stmt = $this->db->prepare("SELECT * FROM posts ORDER BY hits DESC LIMIT 4");
+			$stmt->execute();
+			return $stmt;
 		}
 		catch(PDOException $e)
 		{

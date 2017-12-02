@@ -105,13 +105,13 @@ if(isset($_POST['editBtn']))
    </head>
    <body>
       <div class="header">
-         <div class="btnArea">
-            <u
-               <li><a href="mypage.php">MY</a></li>
-               <li><a href="mainpage.php">MAIN</a></li>
-               <li><a href="index.html" onclick="logout()">LogOut</a></li>
-            </ul>
-         </div>
+        <div class="btnArea">
+           <ul>
+              <li><a href="mypage.php">MY</a></li>
+              <li><a href="mainpage.php">MAIN</a></li>
+                 <li><a href="logout.php?logout=true">LogOut</a></li>
+           </ul>
+        </div>
       </div>
       <div class="header" id="title">
          <h1>회원 정보 수정</h1>

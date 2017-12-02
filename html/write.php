@@ -17,29 +17,57 @@ if(isset($_GET['id']))
 	$userRow['category']="";
 	$userRow['title']="";
 }
-
 if(isset($_POST['editBtn']))
 {
-
+	if($_SESSION['state']=='date')
+	{
    $user->edit_post($_GET['id'],$_SESSION['id'],$user->get_category($_SESSION['id'],$_POST['soje']),$_POST['soje'],$_POST['title'],$_POST['content']);
 	 $user->redirect('post_list.php?day='.date("j", strtotime($userRow['timestamp'])));
+ }
+ else if($_SESSION['state']=='category')
+ {
+	 $user->edit_post($_GET['id'],$_SESSION['id'],$user->get_category($_SESSION['id'],$_POST['soje']),$_POST['soje'],$_POST['title'],$_POST['content']);
+	 $user->redirect('post_list.php?category='.$user->get_category($_SESSION['id'],$_POST['soje']));
+ }
+ else if($_SESSION['state']=='soje')
+ {
+	$user->edit_post($_GET['id'],$_SESSION['id'],$user->get_category($_SESSION['id'],$_POST['soje']),$_POST['soje'],$_POST['title'],$_POST['content']);
+	$user->redirect('post_list.php?soje='.$_POST['soje']);
+ }
 }
 
 if(isset($_POST['uploadBtn']))
 {
-
+	if($_SESSION['state']=='date')
+	{
    $user->write_post($_SESSION['id'],$user->get_category($_SESSION['id'],$_POST['soje']),$_POST['soje'],$_POST['title'],$_POST['content']);
+	 echo "<script>history.back();</script>";
 	 $user->redirect('post_list.php?day='.date("j", strtotime("now")));
+ }
+ else if($_SESSION['state']=='category')
+ {
+	 $user->write_post($_SESSION['id'],$user->get_category($_SESSION['id'],$_POST['soje']),$_POST['soje'],$_POST['title'],$_POST['content']);
+	 //echo "<script>history.back();</script>";
+	 $user->redirect('post_list.php?category='.$user->get_category($_SESSION['id'],$_POST['soje']));
+ }
+ else if($_SESSION['state']=='soje')
+ {
+	$user->write_post($_SESSION['id'],$user->get_category($_SESSION['id'],$_POST['soje']),$_POST['soje'],$_POST['title'],$_POST['content']);
+	$user->redirect('post_list.php?soje='.$_POST['soje']);
+ }
 }
 
 
 ?>
-<script>
-function goBack() {
-    window.history.go(-2);
-}
-</script>
 
+<script>
+function goBack()
+  {
+		<?php 	// $user->write_post($_SESSION['id'],$user->get_category($_SESSION['id'],$_POST['soje']),$_POST['soje'],$_POST['title'],$_POST['content']);
+			 ?>
+  window.history.back()
+  }
+</script>
 <!doctype html>
 <meta charset="utf-8">
 <html>
@@ -51,9 +79,15 @@ function goBack() {
 			<div class="header">
 				<h1>글 쓰는 중...</h1>
 			</div>
-
 			<div class="content">
 				<form method="post">
+					<div class="btnArea">
+             <ul>
+                <li><a href="mypage.php">MY</a></li>
+                <li><a href="mainpage.php">MAIN</a></li>
+  				          <li><a href="logout.php?logout=true">LogOut</a></li>
+             </ul>
+          </div>
 					<ul>
 						<li><span>글 제목</span>
 							<?php
@@ -86,10 +120,10 @@ function goBack() {
 									print '<button class="btn" name="editBtn" id="">수정하기</button>';
 
 							 }else{
-									print '<button class="btn" name="uploadBtn" id="">글 올리기</button>';
+									print '<button class="btn" name="uploadBtn" id="">글올리기</button>';
 							 }
 						?>
-						<button class="btn" name="cancelBtn" a href="#" onclick="history.go(-1); return false id="">취소</button>
+											<input type="button" class="btn" value="취소" onclick="history.back()">
 					</p>
 				</form>
 			</div>

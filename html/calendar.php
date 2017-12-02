@@ -79,10 +79,29 @@ function getCheckBox(){ //배열로 database에서 받아서 array에 넣고 동
 <!DOCTYPE>
 <HTML>
 <head>
+	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.4.0/css/font-awesome.min.css">
+			<!-- Latest compiled and minified CSS -->
+	<link rel="stylesheet" href="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap.min.css">
+	<!-- jQuery library -->
+	<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
+	<!-- Latest compiled JavaScript -->
+	<script src="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/js/bootstrap.min.js"></script>
+	<!-- mobile reaction-->
+	<meta name="viewport" content="width=device-width, initial-scale=1">
 </head>
     <body>
         <?php getCheckBox(); ?>
-        <table width='500' cellpadding='0' cellspacing="1" bgcolor="#999999">
+				<div class="btnArea">
+					 <ul>
+							<li><a href="mypage.php">MY</a></li>
+							<li><a href="mainpage.php">MAIN</a></li>
+								 <li><a href="logout.php?logout=true">LogOut</a></li>
+					 </ul>
+				</div>
+				<div class="container">
+					<div class="row">
+						<div class="col-xs-push-2 col-xs-8">
+        <table class="table table-bordered">
            <tr>
                 <td height="50" align="center" bgcolor="#FFFFFF" colspan="7">
                   <form method="post">
@@ -138,9 +157,8 @@ function getCheckBox(){ //배열로 database에서 받아서 array에 넣고 동
             // 13. 날짜 출력
             echo $day;
 						print "<br>";
-
-						$stmt=$user->runQuery("SELECT * FROM posts WHERE extract(YEAR_MONTH FROM timestamp)=:yearmonth AND extract(DAY FROM timestamp)=:day");
-						$stmt->execute(array(':yearmonth'=>$this_year.$this_mon,':day'=>$day));
+						$stmt=$user->runQuery("SELECT * FROM posts WHERE extract(YEAR_MONTH FROM timestamp)=:yearmonth AND extract(DAY FROM timestamp)=:day AND memberID=:id");
+						$stmt->execute(array(':yearmonth'=>$this_year.$this_mon,':day'=>$day,':id'=>$_SESSION['id']));
 						if($stmt->rowCount()!=0){
 							print "<a href='./post_list.php?day=".$day."'>";
 							echo $stmt->rowCount()."posts";
@@ -165,6 +183,9 @@ function getCheckBox(){ //배열로 database에서 받아서 array에 넣고 동
         </tr>
     <?php } ?>
        </table>
+		 </div>
+		 </div>
+		 </div>
 
 
     </body>

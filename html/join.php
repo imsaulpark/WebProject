@@ -96,18 +96,25 @@
 <meta charset="utf-8">
 <html>
 	<head>
-		<link rel="stylesheet" type="text/css" href="../css/join.css">
-		<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
-		<!--<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
-		<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script> -->
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.4.0/css/font-awesome.min.css">
+        <!-- Latest compiled and minified CSS -->
+    <link rel="stylesheet" href="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap.min.css">
+    <!-- jQuery library -->
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
+    <!-- Latest compiled JavaScript -->
+    <script src="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/js/bootstrap.min.js"></script>
+    <!-- mobile reaction-->
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <!-- <p class="form-control-static" -->
+    <!-- btn-block, btn-lg, btn-xs, active, disabled-->
 </head>
 	<body>
 		<div class="bodyInbox">
-			<div class="header">
+			<div class="header text-center lead">
 				<h1>회원가입</h1>
 			</div>
 			<div class="content">
-				<form class="joinForm" method="post">
+				<form class="form-horizontal" method="post">
 
                                 <?php
                                 if(isset($error))
@@ -132,18 +139,54 @@
 
 
 					<ul>
-						<li><span>ID</span><input name="id" type="text" text=""> </li>
-						<li><span>PW</span><input name="pw" type="password" text=""> </li>
-						<li><span>PW확인</span><input name="pw2" type="password" text=""> </li>
-						<li><span>저자(이름)</span><input name="name" type="text" text=""> </li>
-						<li><span>작명(닉네임)</span><input name="nickname" type="text" text=""> </li>
-						<li><span>핸드폰번호</span><input name="phone" type="text" text=""> </li>
-						<div id="book_intro"><span>책소개</span></div><div id="textarea"><textarea></textarea name="book_intro"></div>
+            <div class="form-group">
+                <label for="id" class=" control-label col-xs-5">ID</label>
+                <div class=" col-xs-2" >
+                  <input class="form-control" type="text" name="id" >
+                </div>
+            </div>
+            <div class="form-group">
+                <label for="pw" class="col-xs-offset-4 control-label col-xs-1">Password</label>
+                <div class="col-xs-2">
+                  <input class="form-control" type="password" name="pw2" >
+                </div>
+            </div>
+            <div class="form-group">
+                <label for="pw2" class="col-xs-offset-4 control-label col-xs-1">Password-Check</label>
+                <div class="col-xs-2">
+                  <input class="form-control" type="password" name="pw2" >
+                </div>
+            </div>
+            <div class="form-group">
+                <label for="name" class="col-xs-offset-4 control-label col-xs-1">Name</label>
+                <div class=" col-xs-2" >
+                  <input class="form-control" type="text" name="name" >
+                </div>
+            </div>
+            <div class="form-group">
+                <label for="nickname" class="col-xs-offset-4 control-label col-xs-1">Nick Name</label>
+                <div class=" col-xs-2" >
+                  <input class="form-control" type="text" name="nickname" >
+                </div>
+            </div>
+            <div class="form-group">
+                <label for="phone" class="col-xs-offset-4 control-label col-xs-1">TEL</label>
+                <div class=" col-xs-2" >
+                  <input class="form-control" type="tel" name="phone" >
+                </div>
+            </div>
+            <div class="form-group">
+                <label for="intro" class="col-xs-offset-4 control-label col-xs-1">Introduction</label>
+                <div class=" col-xs-2" >
+                  <input class="form-control" type="text" name="book_intro" >
+                </div>
+            </div>
+            <div class="col-xs-12 text-center">
+              <button type="submit" name="joinBtn" class="btn btn-primary btn-sm">SIGN UP</button>
+              <button type="cancel" name="cancelBtn" class="btn btn-danger btn-sm">CANCEL</button>
+            </div>
 					</ul>
 					<p>
-						<button type="submit" name="joinBtn" class="bottomBtn"><i class="glyphicon glyphicon-open-file"></i>&nbsp;SIGN UP</button>
-
-						<button type="cancel" name="cancelBtn" class="bottomBtn"><i class="glyphicon glyphicon-open-file"></i>CANCEL</button>
 					</p>
 				</form>
 			</div>

@@ -5,6 +5,7 @@
 	require_once 'user.php';
 	$user = new USER();
 	$id = $_SESSION['id'];
+	$_SESSION['state']='soje';
 
 	$keywords = array("keyword1", "keyword2", "keyword3", "keyword4", "keyword5", "keyword6");
 
@@ -40,6 +41,12 @@
 		//echo $_SESSION['last_week'];
 		$user->redirect('calendar.php');
 	}
+
+	if(isset($_GET['subscriptionBtn']))
+	{
+		$_SESSION['state']='subscription';
+		$user->redirect('post_list.php');
+	}
 ?>
 
 
@@ -54,7 +61,7 @@
 			<div class="header">
 				<div class="btnArea">
 					<ul>
- 				                <li><a href="logout.php?logout=true">Sign Out</a></li>
+ 				    <li><a href="logout.php?logout=true">LogOut</a></li>
 						<li><a href="mainpage.php">MAIN</a></li>
 						<li><a href="edit.php">수정</a></li>
 					</ul>
@@ -62,9 +69,12 @@
 			</div>
 			<div class="content">
 				<div class="leftBox">
-					<form class="loginForm">
-						<span>저자/작명 부분</span><button class="btn" name="calendarBtn" id="calendar"><a>달력</a></button>
+						<span>저자/작명 부분</span>
+						<form>
+						<button class="btn" name="calendarBtn" id="calendar"><a>달력</a></button>
+						<button class="btn" name="subscriptionBtn" id="calendar"><a>구독 글</a></button>
 						<div></div>
+					</form>
 						<?php
 
 							$stmt=$user->get_soje($_SESSION['id']);
@@ -72,13 +82,14 @@
 							{
 								$userRow=$stmt->fetch(PDO::FETCH_ASSOC);
 								if($userRow['soje']!=NULL){
-								?>
-								<button class="btn" name="cat<?php echo $i ?>"><a><?php echo $userRow['soje'] ?></a></button>
-							<?php   }
+
+									print "<button class='btn' onclick=\"location.href='post_list.php?soje=".$userRow['soje']."'\" >";
+									echo $userRow['soje'];
+									print '</button>';
+							   }
 							}
 						?>
-						<button class="btn" id="addCat" name="logoutBtn"><a>추가</a></button>
-					</form>
+						<button class="btn" id="addCat"><a  href="addsoje.php" >추가</a></button>
 				</div>
 				<div class="rightBox">
 					<p class="p1">책소개가<br/>들어가는 부분!</p>
