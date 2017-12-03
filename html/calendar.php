@@ -11,29 +11,11 @@ $last_week = $_SESSION['last_week']; //마지막주 끝나는 요일
 $this_mon = $_SESSION['this_mon']; //이번달
 $this_year = $_SESSION['this_year']; //이번년
 $_SESSION['state']='date';
-  //$next_mon = date("Y-m", strtotime($this_mon.' +1 month'));
-
-//echo $_SESSION['count']."\n";
-//echo $_SESSION['last_day']."\n";
-//echo $_SESSION['start_day']."\n";
-//echo $_SESSION['total_week']."\n";
-//echo $_SESSION['last_week']."\n";
-//echo $_SESSION['this_mon']."\n";
-//echo $_SESSION['this_year']."\n";
-
-//$n_m= date("Y-m-d",mktime(0,0,0,$s_m+1,$s_d,$s_Y)); // 다음달 (빠뜨린 부분 추가분이에요)
-//$p_m= date("Y-m-d",mktime(0,0,0,$s_m-1,$s_d,$s_Y)); // 이전달
 
 if(isset($_POST['prevBtn']))
 {
 
 	$_SESSION['count']--;
-	changeDate($user);
-  //$_SESSION['last_week'] =date("w",strtotime(date("Y-m",strtotime($this_mon.' -1 month') )."-".$_SESSION['last_day']));
-	//$_SESSION['this_mon'] = date("m",strtotime(date("Y-m",strtotime($_SESSION['count'].' month'))));
-  //$_SESSION['this_mon']= $this_mon-1;
-  //if($_SESSION['this_mon']==0)
-    //$_SESSION['this_mon']=12;
 
 }
 
@@ -42,11 +24,6 @@ if(isset($_POST['nextBtn']))
 
 	$_SESSION['count']++;
 	changeDate($user);
-  //$_SESSION['last_week'] =date("w",strtotime(date("Y-m",strtotime($this_mon.' -1 month') )."-".$_SESSION['last_day']));
-	//$_SESSION['this_mon'] = date("m",strtotime(date("Y-m",strtotime($_SESSION['count'].' month'))));
-  //$_SESSION['this_mon']= $this_mon-1;
-  //if($_SESSION['this_mon']==0)
-    //$_SESSION['this_mon']=12;
 
 }
 
@@ -63,15 +40,20 @@ function changeDate($user){
 }
 
 
-//여따가 배열로 checkbox용 php 하나 해놓고 만들면 될듯? 아니면 받아오는 함수 만ㄷ르어야되는데 내가 잘 모름ㅠ php서버 어디서
-$arr = array("A","B","C");
-function getCheckBox(){ //배열로 database에서 받아서 array에 넣고 동적으로 할당
-    $str ='';
-    $sojes=array("soje1"=>1,"soje2"=>2, "soje3"=>3);
-    while(list($k,$v)=each($sojes)){
-        ?><br><?php echo $k ?><input type="checkbox" value="<?php echo $v ?>" name="soje[]"> <?php
-    }
-    return $str;
+if(isset($_POST['prevBtn']))
+{
+
+	$_SESSION['count']--;
+	changeDate($user);
+
+}
+
+if(isset($_POST['nextBtn']))
+{
+
+	$_SESSION['count']++;
+	changeDate($user);
+
 }
 
 ?>
@@ -90,7 +72,6 @@ function getCheckBox(){ //배열로 database에서 받아서 array에 넣고 동
 	<meta name="viewport" content="width=device-width, initial-scale=1">
 </head>
     <body>
-        <?php getCheckBox(); ?>
 				<div class="btnArea">
 					 <ul>
 							<li><a href="mypage.php">MY</a></li>

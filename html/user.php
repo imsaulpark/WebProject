@@ -191,6 +191,21 @@ class USER
 
 	}
 
+	public function get_intro($id)
+	{
+		try{
+			$stmt = $this->db->prepare("SELECT * FROM members WHERE id=:id LIMIT 1");
+			$stmt->execute(array(':id'=>$id));
+			$userRow=$stmt->fetch(PDO::FETCH_ASSOC);
+			return $userRow['intro'];
+		}
+		catch(PDOException $e)
+		{
+			echo $e->getMessage();
+		}
+
+	}
+
 	public function get_num_post($id)
 	{
 		try

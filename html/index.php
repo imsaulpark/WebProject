@@ -13,6 +13,16 @@ if($user->is_loggedin()!="")
 
 if(isset($_POST['loginBtn']))
 {
+
+  $_SESSION['count']=0;
+  $_SESSION['last_day'] = date("t", time()); //총 요일 수
+  $_SESSION['start_day'] = date("w", strtotime(date("Y-m")."-01")); //시작 요일
+  $_SESSION['total_week'] = ceil(($_SESSION['last_day'] + $_SESSION['start_day'] )/7); // 총 요일
+  $_SESSION['last_week'] = date('w',strtotime(date("Y-m")."-".$_SESSION['last_day'] ));
+  $_SESSION['this_mon'] = date("m",strtotime(date("Y-m",strtotime('+0 month'))));
+  $_SESSION['this_year'] = date("Y",strtotime(date("Y-m",strtotime('+0 month'))));
+
+
         $id = $_POST['id'];
         $pw = $_POST['pw'];
 

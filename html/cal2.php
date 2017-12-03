@@ -114,7 +114,7 @@ for($i=1; $i <= $total_week; $i++){?>
 		if($today_yy == $yy && $today_mm == $mm && $day == date("j")){
 			echo "<u>";
 		}
-		
+
 		// 13. 날자 출력
 		echo $day;
 
@@ -136,5 +136,5 @@ for($i=1; $i <= $total_week; $i++){?>
 <?}?>
 </tr>
 <?}?>
-</table> 
+</table>
 </form>

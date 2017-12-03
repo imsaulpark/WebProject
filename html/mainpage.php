@@ -39,27 +39,34 @@ $_SESSION['state']='category';
         font-size:3em;
         color:gray;
       }
+
+      .service{
+          padding-right: 2em;
+          padding-top: 1em;
+        }
+
+      .heading{
+ 				background-color : #F5F5F5;
+      }
+
       </style>
    </head>
    <body>
-      <div class="header">
-         <div class="btnArea">
-            <ul>
-               <li><a href="mypage.php">MY</a></li>
-               <li><a href="mainpage.php">MAIN</a></li>
- 				       <li><a href="logout.php?logout=true">LogOut</a></li>
-            </ul>
-         </div>
-      </div>
-<br><br>
-         <div>
-           <div class="containe text-center">
-            <div class="row">
+      <div class="containe text-center">
+        <div class="row text-right service">
+              <a class= "btn btn-default serviceBtn" href="mypage.php">MY</a>
+             <a class= "btn btn-default serviceBtn"  href="mainpage.php">MAIN</a>
+              <a class= "btn btn-default serviceBtn"  href="index.html" onclick="logout()">LogOut</a>
+
+        </div>
+        <br><br>
+          <div class="row heading">
                <h1>BEST POSTS</h1>
                <h2>BOOKCHEF의 최고의 게시물을 만나보세요!</h2>
                 <br>
-            </div>
-              <div class="row">
+          </div>
+          <div class="row">
+                <br><br>
             <?php
               print "<div class='col-xs-3'></div><div class='col-xs-6'>";
               for($i=0;$i<$bestPosts->rowCount();$i++)
@@ -81,21 +88,21 @@ $_SESSION['state']='category';
               }
                 print "</div><div class='col-xs-2'></div>";
              ?>
-           </div>
-           </div>
-         </div>
+          </div>
          <br><br><br><br><br>
-         <div class="container text-center">
+         <div class="row heading">
                <h1>CATEGORY</h1>
                <h2>CATEGORY 별로 분류해 보세요!</h2>
                <br>
+          </div>
+          <br><br>
               <?php
                 for($i=0;$i<$allCategory->rowCount();$i++)
                 {
-                  if($i%6==0) print '<div class="row"><div class="col-xs-2"></div><div class="col-xs-8">';
+                  if($i%6==0) print '<div class="row"><div class="col-xs-3"></div><div class="col-xs-6">';
                   $userRow=$allCategory->fetch(PDO::FETCH_ASSOC);
                   print "<div class='col-xs-3 col-md-2 text-center' style='padding-right:0;padding-left:0;'>";
-                  print "<button class='categoryBtn btn-block' onclick=\"location.href='post_list.php?category=".$userRow['category']."'\" >";
+                  print "<button class='categoryBtn btn-block' onclick=\"location.href='post_list.php?state=category&category=".$userRow['category']."'\" >";
                   print "<a>";
                   print "<b>";
                   echo $userRow['category'];
@@ -107,6 +114,7 @@ $_SESSION['state']='category';
                 }
 
                ?>
+               <br><br> <br><br>
         </div>
       <script type="text/javascript" src="../js/index.js"></script>
    </body>

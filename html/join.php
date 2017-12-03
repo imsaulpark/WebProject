@@ -96,6 +96,8 @@
 <meta charset="utf-8">
 <html>
 	<head>
+    <link rel="stylesheet" type="text/css" href="../css/post.css">
+
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.4.0/css/font-awesome.min.css">
         <!-- Latest compiled and minified CSS -->
     <link rel="stylesheet" href="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap.min.css">
@@ -105,8 +107,6 @@
     <script src="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/js/bootstrap.min.js"></script>
     <!-- mobile reaction-->
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <!-- <p class="form-control-static" -->
-    <!-- btn-block, btn-lg, btn-xs, active, disabled-->
 </head>
 	<body>
 		<div class="bodyInbox">

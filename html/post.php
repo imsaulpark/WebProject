@@ -16,16 +16,20 @@ if($_SESSION['id']!=$userRow['memberID'])
 
 if(isset($_POST['deleteBtn']))
 {
+  $user->delete_post($userRow['id']);
   if($_SESSION['state']=='date')
   {
     $day = date("d",strtotime($userRow['timestamp']));
-    $user->delete_post($userRow['id']);
+
     $user->redirect('post_list.php?day='.$day);
   }
   else if($_SESSION['state']=='category')
   {
-    $user->delete_post($userRow['id']);
     $user->redirect('post_list.php?category='.$userRow['category']);
+  }
+  else if($_SESSION['state']=='soje')
+  {
+    $user->redirect('post_list.php?soje='.$userRow['soje']);
   }
 }
 
@@ -50,12 +54,18 @@ if(isset($_POST['editBtn']))
       <!-- Latest compiled JavaScript -->
       <script src="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/js/bootstrap.min.js"></script>
       <!-- mobile reaction-->
-      <meta name="viewport" content="width=device-width, initial-scale=1">
+
       <style>
 
         @import url(http://fonts.googleapis.com/earlyaccess/kopubbatang.css);
         @import url(http://fonts.googleapis.com/earlyaccess/hanna.css);
         @import url(http://fonts.googleapis.com/earlyaccess/jejugothic.css);
+
+      .service{
+          padding-right: 2em;
+          padding-top: 1em;
+        }
+
         .main{
           font-family: 'Jeju Gothic', serif;
           font-size:1.4em;
@@ -85,6 +95,7 @@ if(isset($_POST['editBtn']))
 
         .content{
           font-family: 'Jeju Gothic', serif;
+          font-size:1.2em;
         }
         .bg {
             /* The image used */
@@ -106,12 +117,11 @@ if(isset($_POST['editBtn']))
 
       <div class="contatiner main text-center">
 
-           <div class="btnArea text-right">
-              <ul>
-                 <li><a href="mypage.php">MY</a></li>
-                 <li><a href="mainpage.php">MAIN</a></li>
-                 <li><a href="index.html" onclick="logout()">LogOut</a></li>
-              </ul>
+           <div class="row text-right service">
+                 <a class= "btn btn-default serviceBtn" href="mypage.php">MY</a>
+                <a class= "btn btn-default serviceBtn"  href="mainpage.php">MAIN</a>
+                 <a class= "btn btn-default serviceBtn"  href="index.html" onclick="logout()">LogOut</a>
+
            </div>
            <br><br><br><br><br><br>
         <div class="row">
@@ -150,29 +160,27 @@ if(isset($_POST['editBtn']))
        <div class="container content">
        <div class="row">
          <div class="col-xs-offset-3 col-xs-6">
-          <?php echo $userRow['content']; ?>
+          <?php
+          echo $userRow['content'];
+          ?>
          </div>
+       </div>
+       <br><br><br>
+       <div class="row text-center">
+         <form method="post">
+           <?php
+           if($_SESSION['id']==$userRow['memberID'])
+           {
+             print '<button class="btn btn-primary" name="editBtn">수정</button>';
+             print " ";
+             print '<button class="btn btn-danger" name="deleteBtn">삭제</button>';
+           }
+           ?>
+           <br><br><br>
+        </form>
        </div>
      </div>
 
-      <div class="bodyInbox">
-         <div class="content">
-            <div class="rightBox">
-              <form method="post">
-                <?php
-                if($_SESSION['id']==$userRow['memberID'])
-                {
-                  print '<button class="btn" name="editBtn"><a>수정</a></button>';
-                  print '<button class="btn" name="deleteBtn"><a>삭제</a></button>';
-                }
-                ?>
-             </form>
-               <div class="empty"></div>
-
-            </div>
-
-         </div>
-      </div>
       <script type="text/javascript" src="../js/index.js"></script>
    </body>
 </html>
