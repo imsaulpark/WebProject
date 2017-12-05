@@ -27,6 +27,9 @@ $_SESSION['state']='category';
       <meta name="viewport" content="width=device-width, initial-scale=1">
       <style>
       @import url(//fonts.googleapis.com/earlyaccess/nanumpenscript.css);
+      @import url(http://fonts.googleapis.com/earlyaccess/kopubbatang.css);
+      @import url(http://fonts.googleapis.com/earlyaccess/hanna.css);
+      @import url(http://fonts.googleapis.com/earlyaccess/jejugothic.css);
 
       h1{
         font-family: 'Nanum Pen Script', cursive;
@@ -41,12 +44,28 @@ $_SESSION['state']='category';
       }
 
       .service{
-          padding-right: 2em;
-          padding-top: 1em;
-        }
+ 				padding-right: 2em;
+ 				padding-top: 1em;
+ 			}
+
 
       .heading{
  				background-color : #F5F5F5;
+      }
+
+      *{
+        font-family: 'Jeju Gothic', serif;
+      }
+
+      p{
+        font-size:1.3em;
+        overflow: hidden;
+        text-overflow: ellipsis;
+        display: -webkit-box;
+        -webkit-box-orient: vertical;
+        -webkit-line-clamp: 2; /* number of lines to show */
+        line-height: 1.2em;        /* fallback */
+        max-height: 2.4em;       /* fallback */
       }
 
       </style>
@@ -54,11 +73,11 @@ $_SESSION['state']='category';
    <body>
       <div class="containe text-center">
         <div class="row text-right service">
-              <a class= "btn btn-default serviceBtn" href="mypage.php">MY</a>
-             <a class= "btn btn-default serviceBtn"  href="mainpage.php">MAIN</a>
-              <a class= "btn btn-default serviceBtn"  href="index.html" onclick="logout()">LogOut</a>
-
+         <a class= "btn btn-default" href="mypage.php">MY</a>
+         <a class= "btn btn-default"  href="mainpage.php">MAIN</a>
+         <a class= "btn btn-default" href="logout.php?logout=true">LogOut</a>
         </div>
+
         <br><br>
           <div class="row heading">
                <h1>BEST POSTS</h1>
@@ -73,12 +92,10 @@ $_SESSION['state']='category';
               {
                 $userRow=$bestPosts->fetch(PDO::FETCH_ASSOC);
                 print "<div class='col-xs-3 text-center'>";
-                print "<button class='circle' onclick=\"location.href='post.php?id=".$userRow['id']."'\" >";
-                print "<a>";
-                print "<b>";
+                print "<button class='circle' onclick=\"location.href='post.php?state=\'category\'&id=".$userRow['id']."'\" >";
+                print "<p>";
                 echo $userRow['title'];
-                print "</b>";
-                print "</a>";
+                print "</p>";
                 print "<br>";
                 echo $userRow['category'];
                 echo " ".$userRow['soje'];
@@ -99,9 +116,9 @@ $_SESSION['state']='category';
               <?php
                 for($i=0;$i<$allCategory->rowCount();$i++)
                 {
-                  if($i%6==0) print '<div class="row"><div class="col-xs-3"></div><div class="col-xs-6">';
+                  if($i%6==0) print '<div class="row"><div class="col-xs-2"></div><div class="col-xs-8"><div class="col-xs-3"></div>';
                   $userRow=$allCategory->fetch(PDO::FETCH_ASSOC);
-                  print "<div class='col-xs-3 col-md-2 text-center' style='padding-right:0;padding-left:0;'>";
+                  print "<div class='col-md-1 text-center' style='padding-right:0;padding-left:0;'>";
                   print "<button class='categoryBtn btn-block' onclick=\"location.href='post_list.php?state=category&category=".$userRow['category']."'\" >";
                   print "<a>";
                   print "<b>";

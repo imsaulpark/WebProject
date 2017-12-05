@@ -10,9 +10,58 @@ if(isset($_GET['writer']))
   $user->delete_subscriber($_SESSION['id'],$_GET['writer']);
 }
 
+if(isset($_POST['keyDeleteBtn0']))
+{
+  $user->delete_soje($_SESSION['id'],$_POST['category'][0],$_POST['soje'][0]);
+}
+
+if(isset($_POST['keyDeleteBtn1']))
+{
+  $user->delete_soje($_SESSION['id'],$_POST['category'][1],$_POST['soje'][1]);
+}
+
+if(isset($_POST['keyDeleteBtn2']))
+{
+  $user->delete_soje($_SESSION['id'],$_POST['category'][2],$_POST['soje'][2]);
+}
+
+if(isset($_POST['keyDeleteBtn3']))
+{
+  $user->delete_soje($_SESSION['id'],$_POST['category'][3],$_POST['soje'][3]);
+}
+
+if(isset($_POST['keyDeleteBtn4']))
+{
+  $user->delete_soje($_SESSION['id'],$_POST['category'][4],$_POST['soje'][4]);
+}
+
+if(isset($_POST['keyDeleteBtn5']))
+{
+  $user->delete_soje($_SESSION['id'],$_POST['category'][5],$_POST['soje'][5]);
+}
+
+if(isset($_POST['sojeEditBtn']))
+{
+  $size = count($_POST['category']);
+  $user->delete_all_soje($_SESSION['id']);
+  for($i=0;$i<$size-1;$i++)
+  {
+    $user->add_soje($_SESSION['id'],$_POST['category'][$i],$_POST['soje'][$i]);
+  }
+}
+
+if(isset($_POST['keyAddBtn']))
+{
+  $size = count($_POST['category']);
+  $user->add_soje($_SESSION['id'],$_POST['category'][$size-1],$_POST['soje'][$size-1]);
+}
+
+
+
 $stmt=$user->runQuery("SELECT * FROM members WHERE id=:id");
 $stmt->execute(array(':id'=>$_SESSION['id']));
 $member=$stmt->fetch(PDO::FETCH_ASSOC);
+$tel = preg_replace("/(0(?:2|[0-9]{2}))([0-9]+)([0-9]{4}$)/", "\\1-\\2-\\3", $member['phone']);
 
 $stmt= $user->runQuery("SELECT * FROM subscription WHERE subscriber=:subscriber");
 $stmt->execute(array(':subscriber'=>$member['id']));
@@ -90,8 +139,8 @@ if(isset($_POST['editBtn']))
                 {
                         echo $e->getMessage();
                 }
+          }
         }
-}
 
 
  ?>
@@ -113,62 +162,202 @@ if(isset($_POST['editBtn']))
       <script src="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/js/bootstrap.min.js"></script>
       <!-- mobile reaction-->
       <meta name="viewport" content="width=device-width, initial-scale=1">
+
+      <style>
+
+        @import url(http://fonts.googleapis.com/earlyaccess/kopubbatang.css);
+        @import url(http://fonts.googleapis.com/earlyaccess/hanna.css);
+        @import url(http://fonts.googleapis.com/earlyaccess/jejugothic.css);
+
+        .service{
+            padding-right: 2em;
+            padding-top: 1em;
+          }
+
+          *{
+            font-family: 'Jeju Gothic', serif;
+          }
+
+          span{
+            font-size:1.4em;
+            line-height: 2em;
+          }
+
+          .backg{
+             	background-color : #F5F5F5;
+          }
+
+          .inputRow{
+            margin-bottom: 1em;
+          }
+
+          .btn2{
+            width:6em;
+            margin-right: 1em;
+          }
+
+        </style>
+
    </head>
    <body>
-      <div class="header">
-        <div class="btnArea">
-           <ul>
-              <li><a href="mypage.php">MY</a></li>
-              <li><a href="mainpage.php">MAIN</a></li>
-                 <li><a href="logout.php?logout=true">LogOut</a></li>
-           </ul>
-        </div>
-      </div>
-      <div class="header" id="title">
-         <h1>회원 정보 수정</h1>
-      </div>
-      <div class="bodyInbox">
-         <div class="content">
-           <form method="post">
-            <ul>
-              <?php
-              if(isset($error))
-              {
-                      foreach($error as $error)
-                      {
-                              ?>
-                              <div class="alert alert-danger">
-                                      <i class="glyphicon glyphicon-warning-sign"></i> &nbsp; <?php echo $error; ?>
-                              </div>
-                              <?php
-                      }
-              }
-              ?>
+     <div class="row text-right service">
+           <a class= "btn btn-default serviceBtn" href="mypage.php">MY</a>
+          <a class= "btn btn-default serviceBtn"  href="mainpage.php">MAIN</a>
+           <a class= "btn btn-default serviceBtn"  href="index.html" onclick="logout()">LogOut</a>
 
-                  <li><span>저자(이름)</span><input name="name" type="text" value= <?php echo $member['name']; ?>> </li>
-                  <li><span>작명(닉네임)</span><input name="nickname" type="text" value= <?php echo $member['nickname']; ?>> </li>
-                  <li><span>핸드폰 번호</span><input name="phone" type="tel" value= <?php echo $tel; ?>> </li>
-                  <li><span>패스워드</span><input name="pw" type="password" text=""> </li>
-                  <li><span>패스워드 확인</span><input name="pw2" type="password" text=""> </li>
-                  <div id="book_intro"><span>책소개</span></div><div id="textarea"><textarea name="intro"> <?php echo $member['intro']; ?> </textarea></div>
-
-
-               </ul>
-               <button type="submit" name="signoutBtn" id="del_ID">회원 탈퇴</button>
-               <p>
-                  <button type="submit" name="editBtn">수정완료</button>
-                  <button type="cancel" name="cancelBtn">취소</button>
-               </p>
-            </form>
-            <?php
-              for($i=0;$i<$stmt->rowCount();$i++)
-              {
-                $userRow=$stmt->fetch(PDO::FETCH_ASSOC);
-                print '<li><span>'.$userRow['writer'].'</span><button onclick="location.href=\'edit.php?writer='.$userRow['writer'].'\'">삭제</button> </li>';
-              }
-             ?>
+     </div>
+     <div class="header text-center lead">
+       <h1>회원정보 수정</h1>
+     </div>
+     <div class="row text-center">
+       <?php
+       if(isset($error))
+       {
+               foreach($error as $error)
+               {
+                       ?>
+                       <div class="alert alert-danger">
+                               <i class="glyphicon glyphicon-warning-sign"></i> &nbsp; <?php echo $error; ?>
+                       </div>
+                       <?php
+               }
+       }
+       ?>
+     </div>
+     <div class="content">
+       <form class="form-horizontal" method="post">
+         <div class="form-group">
+             <label for="name" class="col-xs-offset-4 control-label col-xs-1">Name</label>
+             <div class=" col-xs-2" >
+               <input class="form-control" type="text" name="name" value= <?php echo $member['name'] ?> >
+             </div>
          </div>
+         <div class="form-group">
+             <label for="nickname" class="col-xs-offset-4 control-label col-xs-1">Nick Name</label>
+             <div class=" col-xs-2" >
+               <input class="form-control" type="text" name="nickname"  value= <?php echo $member['nickname'] ?> >
+             </div>
+         </div>
+         <div class="form-group">
+             <label for="pw" class="col-xs-offset-4 control-label col-xs-1">Password</label>
+             <div class="col-xs-2">
+               <input class="form-control" type="password" style="font-family: 'Kopub Batang'"  name="pw" >
+             </div>
+         </div>
+         <div class="form-group">
+             <label for="pw2" class="col-xs-offset-4 control-label col-xs-1">Password-Check</label>
+             <div class="col-xs-2">
+               <input class="form-control" type="password" style="font-family: 'Kopub Batang'"  name="pw2" >
+             </div>
+         </div>
+         <div class="form-group">
+             <label for="phone" class="col-xs-offset-4 control-label col-xs-1">TEL</label>
+             <div class=" col-xs-2" >
+               <input class="form-control" type="tel" name="phone"  value= <?php echo $tel ?> >
+             </div>
+         </div>
+         <div class="form-group">
+             <label for="intro" class="col-xs-offset-4 control-label col-xs-1">INTRO</label>
+             <div class=" col-xs-2" >
+               <input class="form-control" type="text" name="intro" value = <?php echo $member['intro'] ?> >
+             </div>
+         </div>
+         <br>
+       <div class="col-xs-12 text-center">
+         <button type="submit" class="btn btn2 btn-primary btn-sm" name="editBtn">수정완료</button>
+         <input type="button" class="btn btn2 btn-danger btn-sm" onclick="history.back()" value="취소">
       </div>
+    </form>
+    </div>
+    <br><br><br>
+    <div class="row text-center backg">
+      <br><br>
+      <div class="row text-center">
+        <h1>
+          소제 관리
+        </h2>
+      </div>
+      <br>
+      <div class="content">
+        <form class="form-horizontal" method="post">
+          <div class="form-group">
+           <?php
+              $soje_stmt=$user->get_soje($_SESSION['id']);
+              $is_selected="";
+
+              for($i=0;($i<6)&&($i<=$soje_stmt->rowCount());$i++)
+              {
+                print '<div class="col-xs-offset-4 col-xs-4 inputRow">';
+                $soje_row = $soje_stmt->fetch(PDO::FETCH_ASSOC);
+                $category = $user->get_category($_SESSION['id'],$soje_row['soje']);
+                $categories = $user->get_all_category();
+                ?>
+                <div class="col-xs-5">
+                  <select class="form-control" name="category[]" >
+                    <?php for($j=0;$j<$categories->rowCount();$j++)
+                    {
+                      $category_row = $categories->fetch(PDO::FETCH_ASSOC);
+                      ?>
+                     <?php if(!strcmp($category_row['category'],$soje_row['category'])) $is_selected="selected"; ?>
+                       <option <?php echo $is_selected; ?>  value = <?php echo $category_row['category']; ?>  > <?php echo $category_row['category']; ?> </option>;
+                       <?php
+                       $is_selected="";
+                    }
+                     ?>
+                  </select>
+                </div>
+                <div class="col-xs-5">
+                  <?php
+                    print '<input class="form-control" name="soje[]" type="text name="soje" value=\''.$soje_row['soje'].'\'>';
+                    print "</div>";
+                    ?>
+                <div class="col-xs-2">
+                  <?php
+                    if($i==$soje_stmt->rowCount())
+                      print  '<button class="btn btn-primary btn-sm" name="keyAddBtn">추가</button>';
+                    else {
+                      print  '<button class="btn btn-danger btn-sm" name="keyDeleteBtn'.$i.'">삭제</button>';
+                      }
+                    print "</div>";
+                  ?>
+                </div>
+                <?php
+
+                }
+                ?>
+          </div>
+          <br>
+          <div class="col-xs-12 text-center">
+            <button type="submit" class="btn btn2 btn-primary btn-sm" name="sojeEditBtn">수정완료</button>
+            <button type="cancel" class="btn btn2 btn-danger btn-sm" name="cancelBtn">취소</button>
+         </div>
+         <br><br>
+        </form>
+       </div>
+       <br><br>
+   </div>
+
+    <div class="row text-center">
+      <br><br><br>
+      <div class="row text-center">
+        <h1>
+          구독자 관리
+        </h2>
+      </div>
+
+      <?php
+        for($i=0;$i<$stmt->rowCount();$i++)
+        {
+          $userRow=$stmt->fetch(PDO::FETCH_ASSOC);
+          print '<div class="row text-center">';
+          print '<li><span>'.$userRow['writer'].'</span> <button class="btn btn-danger btn-sm" onclick="location.href=\'edit.php?writer='.$userRow['writer'].'\'">삭제</button> </li>';
+          print '</div>';
+        }
+       ?>
+     </div>
+   <br><br>
+
+
       <script type="text/javascript" src="../js/index.js"></script>
    </body>
 </html>

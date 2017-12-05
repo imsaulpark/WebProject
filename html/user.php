@@ -110,6 +110,19 @@ class USER
 		}
 	}
 
+	public function delete_all_soje($id)
+	{
+		try
+		{
+			$stmt = $this->db->prepare("DELETE FROM keyword WHERE id=:id");
+			$stmt->execute(array(':id'=>$id));
+		}
+		catch(PDOException $e)
+		{
+			echo $e->getMessage();
+		}
+	}
+
 	public function add_soje($id, $category, $soje)
 	{
 		try

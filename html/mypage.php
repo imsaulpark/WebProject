@@ -6,8 +6,6 @@
 	$user = new USER();
 	$id = $_SESSION['id'];
 
-	$keywords = array("keyword1", "keyword2", "keyword3", "keyword4", "keyword5", "keyword6");
-
 	if(!$user->is_loggedin())
 	{
 		$user->redirect('index.php');
@@ -101,7 +99,7 @@
 
 				 <div class="row text-left">
            <div class="col-xs-offset-4 col-xs-2">
-             <h1><?php echo $_SESSION['id']; ?></h1>
+             <h1><?php echo $id; ?></h1>
            </div>
         </div>
 
@@ -123,7 +121,7 @@
  					<div class="col-xs-offset-4 col-xs-4">
 						<?php
 
-							$stmt=$user->get_soje($_SESSION['id']);
+							$stmt=$user->get_soje($id);
 							for($i=0;$i<$stmt->rowCount();$i++)
 							{
 								$userRow=$stmt->fetch(PDO::FETCH_ASSOC);
@@ -201,7 +199,7 @@
 					echo $day;
 					print "<br>";
 					$stmt=$user->runQuery("SELECT * FROM posts WHERE extract(YEAR_MONTH FROM timestamp)=:yearmonth AND extract(DAY FROM timestamp)=:day AND memberID=:id");
-					$stmt->execute(array(':yearmonth'=>$this_year.$this_mon,':day'=>$day,':id'=>$_SESSION['id']));
+					$stmt->execute(array(':yearmonth'=>$this_year.$this_mon,':day'=>$day,':id'=>$id));
 					if($stmt->rowCount()!=0){
 						print "<a href='./post_list.php?state=date&day=".$day."'>";
 						echo $stmt->rowCount()."posts";

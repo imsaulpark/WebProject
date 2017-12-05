@@ -91,6 +91,14 @@
 
 ?>
 
+<script>
+
+function resize(obj) {
+obj.style.height = "1px";
+obj.style.height = (12+obj.scrollHeight)+"px";
+}
+
+</script>
 
 <!doctype html>
 <meta charset="utf-8">
@@ -107,6 +115,23 @@
     <script src="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/js/bootstrap.min.js"></script>
     <!-- mobile reaction-->
     <meta name="viewport" content="width=device-width, initial-scale=1">
+
+    <style>
+
+      @import url(http://fonts.googleapis.com/earlyaccess/kopubbatang.css);
+      @import url(http://fonts.googleapis.com/earlyaccess/hanna.css);
+      @import url(http://fonts.googleapis.com/earlyaccess/jejugothic.css);
+
+
+      *{
+        font-family: 'Jeju Gothic', serif;
+      }
+
+      textarea.autosize { min-height: 50px;
+      max-height:200px; }
+
+
+      </style>
 </head>
 	<body>
 		<div class="bodyInbox">
@@ -115,7 +140,7 @@
 			</div>
 			<div class="content">
 				<form class="form-horizontal" method="post">
-
+          <div class="text-center">
                                 <?php
                                 if(isset($error))
                                 {
@@ -136,8 +161,7 @@
                                         <?php
                                 }
                                 ?>
-
-
+           </div>
 					<ul>
             <div class="form-group">
                 <label for="id" class=" control-label col-xs-5">ID</label>
@@ -148,13 +172,13 @@
             <div class="form-group">
                 <label for="pw" class="col-xs-offset-4 control-label col-xs-1">Password</label>
                 <div class="col-xs-2">
-                  <input class="form-control" type="password" name="pw2" >
+                  <input class="form-control" style="font-family: 'Kopub Batang'" type="password" name="pw" >
                 </div>
             </div>
             <div class="form-group">
                 <label for="pw2" class="col-xs-offset-4 control-label col-xs-1">Password-Check</label>
                 <div class="col-xs-2">
-                  <input class="form-control" type="password" name="pw2" >
+                  <input class="form-control" style="font-family: 'Kopub Batang'" type="password" name="pw2" >
                 </div>
             </div>
             <div class="form-group">
@@ -178,12 +202,12 @@
             <div class="form-group">
                 <label for="intro" class="col-xs-offset-4 control-label col-xs-1">Introduction</label>
                 <div class=" col-xs-2" >
-                  <input class="form-control" type="text" name="book_intro" >
+                  <textarea class ="form-control autosize" onkeydown="resize(this)" onkeyup="resize(this)" name="intro"></textarea>
                 </div>
             </div>
             <div class="col-xs-12 text-center">
               <button type="submit" name="joinBtn" class="btn btn-primary btn-sm">SIGN UP</button>
-              <button type="cancel" name="cancelBtn" class="btn btn-danger btn-sm">CANCEL</button>
+         <input type="button" class="btn btn2 btn-danger btn-sm" onclick="history.back()" value="CANCEL">
             </div>
 					</ul>
 					<p>

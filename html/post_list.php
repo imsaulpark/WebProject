@@ -15,6 +15,7 @@ if(isset($_GET['id']))
 else {
     $id=$_SESSION['id'];
 }
+
 if(isset($_GET['state']))
   $_SESSION['state']=$_GET['state'];
 
@@ -33,7 +34,7 @@ if($_SESSION['state']=='date')
   $stmt->execute(array(':soje'=>$_GET['soje'],':id'=>$id));
 }else if($_SESSION['state']=='subscription')
 {
-  $stmt=$user->runQuery("SELECT * FROM subscription WHERE subscriber=:subscriber ORDER BY timestamp DESC");
+  $stmt=$user->runQuery("SELECT * FROM subscription WHERE subscriber=:subscriber");
   $stmt->execute(array(':subscriber'=>$_SESSION['id']));
 
   $query="SELECT * FROM posts WHERE id='-1'" ;
@@ -43,7 +44,7 @@ if($_SESSION['state']=='date')
     $userRow=$stmt->fetch(PDO::FETCH_ASSOC);
     $query.=" OR memberID=\"".$userRow['writer']."\"";
   }
-
+  $query.=" ORDER BY timestamp DESC";
   $stmt=$user->runQuery($query);
   $stmt->execute();
 }

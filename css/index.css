@@ -27,9 +27,13 @@ p{margin: 0px; }
 	text-align: center; background-color: rgba(10,10,10,.68);
 }
 
+div a{
+		color : #C0C0C0;
+}
 
-#loginBtn{padding: 5px 10px; width: 80px; border: 1px solid #666666; border-radius: 5px;
-	font-size: 17px; text-align: center; font-weight: 300; color: #fff;
+
+#loginBtn{padding: 5px 10px; width: 12em; border: 1px solid #666666; border-radius: 5px;
+	font-size: 17px; text-align: center; font-weight: 300; color: #fff; margin-top:1em;
 	background-color: rgba(10,10,10,.68);
 }
 
@@ -41,9 +45,6 @@ ul li{border-bottom: 1px solid #fff;}
 
 .bodyInbox .content .rightBox{float: right; width: 50%; box-sizing: border-box; height: 100%;
 background-color: rgba(10,10,10,.68);}
-.rightBox .p1{text-align: center; font-size: 40px; font-weight: 500; color: #eee;}
-.rightBox .p2{text-align: center; font-size: 30px; margin-top: 30px; font-weight: 500; color: #eee;}
-
 i{color: white;}
 
 input:focus, button:focus {

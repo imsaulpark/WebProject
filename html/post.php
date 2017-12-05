@@ -8,10 +8,31 @@ $stmt=$user->runQuery("SELECT * FROM posts WHERE id=:id");
 $stmt->execute(array(':id'=>$_GET['id']));
 $userRow=$stmt->fetch(PDO::FETCH_ASSOC);
 
+$_SESSION['count']=0;
+$_SESSION['last_day'] = date("t", time()); //총 요일 수
+$_SESSION['start_day'] = date("w", strtotime(date("Y-m")."-01")); //시작 요일
+$_SESSION['total_week'] = ceil(($_SESSION['last_day'] + $_SESSION['start_day'] )/7); // 총 요일
+$_SESSION['last_week'] = date('w',strtotime(date("Y-m")."-".$_SESSION['last_day'] ));
+$_SESSION['this_mon'] = date("m",strtotime(date("Y-m",strtotime('+0 month'))));
+$_SESSION['this_year'] = date("Y",strtotime(date("Y-m",strtotime('+0 month'))));
+
+if(isset($_GET['id']))
+{
+  $id=$_GET['id'];
+}
+else {
+    $id=$_SESSION['id'];
+}
+
 if($_SESSION['id']!=$userRow['memberID'])
 {
   $user->add_hit($userRow['id']);
   $userRow['hits']+=1;
+}
+
+if(isset($_GET['state']))
+{
+  $_SESSION['state']='category';
 }
 
 if(isset($_POST['deleteBtn']))
@@ -117,12 +138,12 @@ if(isset($_POST['editBtn']))
 
       <div class="contatiner main text-center">
 
-           <div class="row text-right service">
-                 <a class= "btn btn-default serviceBtn" href="mypage.php">MY</a>
-                <a class= "btn btn-default serviceBtn"  href="mainpage.php">MAIN</a>
-                 <a class= "btn btn-default serviceBtn"  href="index.html" onclick="logout()">LogOut</a>
+        <div class="row text-right service">
+         <a class= "btn btn-default" href="mypage.php">MY</a>
+         <a class= "btn btn-default"  href="mainpage.php">MAIN</a>
+         <a class= "btn btn-default" href="logout.php?logout=true">LogOut</a>
+        </div>
 
-           </div>
            <br><br><br><br><br><br>
         <div class="row">
           <div class="col-xs-offset-2 col-xs-8">

@@ -6,7 +6,7 @@ $user = new USER();
 
 $id;
 
-if(isset($_POST['find_id']))
+if(isset($_POST['idFindBtn']))
 {
 
         $name = $_POST['name'];
@@ -21,12 +21,12 @@ if(isset($_POST['find_id']))
                 if($stmt->rowCount()==0)
               	{
                 	$string = "There is no matching user.";
-			echo $string;
+			            echo $string;
               	}
                 else
                 {
-			$string="Your Id is".$row['id'];
-			echo $string;
+            			$string="Your Id is".$row['id'];
+            			echo $string;
                 }
 	}
         catch(PDOException $e)
@@ -38,7 +38,7 @@ if(isset($_POST['find_id']))
 }
 
 
-if(isset($_POST['find_pw']))
+if(isset($_POST['pwFindBtn']))
 {
 
 	$id = $_POST['id'];
@@ -50,19 +50,16 @@ if(isset($_POST['find_pw']))
 
 	try
 	{
-		echo $phone;
         	$stmt = $user->runQuery("SELECT id FROM members WHERE id=:id and name=:name and phone=:phone ");
                 $stmt->execute(array(':id'=>$id,':name'=>$name,':phone'=>$phone));
-                $row=$stmt->fetch(PDO::FETCH_ASSOC);
                 if($stmt->rowCount()==0)
                 {
                 	$string = "There is no matching user.";
-			echo $string;
+			            echo $string;
                 }
                 else
                 {
-			$finding="true";
-			//$user->redirect("find_ID_PW.php?findPW");
+			            $finding="true";
                 }
          }
          catch(PDOException $e)
@@ -80,7 +77,6 @@ if(isset($_POST['confirm']))
         $pw2 = $_POST['pw2'];
 	try
 	{
-		echo $_SESSION['temp_id'];
 		 if(strlen($pw1)<4 || strlen($pw1)>12){
                         $alarm = "Password must be 4 ~ 12 characters.";
                 }
@@ -92,9 +88,10 @@ if(isset($_POST['confirm']))
 			$pw=password_hash($pw1,PASSWORD_DEFAULT);
 
 
-                        $stmt = $DB_con->prepare("update members set pw=:pw WHERE id=:id");
+                        $stmt = $user->runQuery("update members set pw=:pw WHERE id=:id");
                         $stmt->execute(array(':pw'=>$pw,':id'=>$_SESSION['temp_id']));
-			$alarm="Password is successfully changed";
+			                  echo "<script>alert('Password is succesfully changed');</script>";
+                        echo "<script>window.close();</script>";
                	}
 	}
           catch(PDOException $e)
@@ -112,8 +109,6 @@ if(isset($_POST['confirm']))
 <meta charset="utf-8">
 <html>
 	<head>
-		<link rel="stylesheet" type="text/css" href="../css/find_ID_PW.css">
-    <link rel="stylesheet" type="text/css" href="../css/post.css">
 
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.4.0/css/font-awesome.min.css">
         <!-- Latest compiled and minified CSS -->
@@ -125,49 +120,124 @@ if(isset($_POST['confirm']))
     <!-- mobile reaction-->
     <meta name="viewport" content="width=device-width, initial-scale=1">
 
+          <style>
+
+            @import url(http://fonts.googleapis.com/earlyaccess/kopubbatang.css);
+            @import url(http://fonts.googleapis.com/earlyaccess/hanna.css);
+            @import url(http://fonts.googleapis.com/earlyaccess/jejugothic.css);
+
+            .wrap{
+              margin-top: 3em;
+            }
+
+            *{
+              font-family: 'Jeju Gothic', serif;
+            }
+
+            .type{
+
+              font-size:2em;
+              margin-bottom: 1em;
+            }
+
+            .btn{
+              width:7em;
+              margin-top : 1.5em;
+            }
+
+            </style>
+
 	</head>
 	<body>
-		<div class="bodyInbox">
-			<div class="header">
-			</div>
-			<div class="content">
-				<div class="leftBox">
-					<form class="input" method="post">
-						<ul>
-							<li><span>이름</span><input name="name" type="text" text=""> </li>
-							<li><span>핸드폰번호</span><input name="phone" type="tel" text=""> </li>
-						</ul>
-					<p><button class="find" id="find_id" name="find_id"><a>아이디찾기</a></button></p>
-					</form>
-				</div>
-				<div class="rightBox">
-					<form class="input", method="post">
-						<ul>
-							<li><span>ID</span><input name="id" type="text" text=""> </li>
-							<li><span>이름</span><input name="name" type="text" text=""> </li>
-							<li><span>핸드폰번호</span><input name="phone" type="tel" text=""> </li>
-						</ul>
-						<p><span><button class="find" name="find_pw"><a>비밀번호 찾기</a></button></span></p>
-					</form>
 
-					<?php
-					if(isset($finding)){
-						echo("<script>location.href='./newPW.php';</script>");
-						?>
+    <div class="content wrap">
+      <div class="col-xs-6">
+      <form class="form-horizontal" method="post">
+        <div class="type text-center">
+          ID 찾기
+        </div>
+        <div class="form-group">
+            <label for="name" class=" control-label col-xs-3">NAME</label>
+            <div class=" col-xs-6" >
+              <input class="form-control" type="text" name="name" >
+            </div>
+        </div>
+        <div class="form-group">
+            <label for="phone" class="control-label col-xs-3">TEL</label>
+            <div class=" col-xs-6" >
+              <input class="form-control" type="tel" name="phone" >
+            </div>
+        </div>
+        <div class="col-xs-12 text-center">
+          <button type="submit" name="idFindBtn" class="btn btn-primary btn-sm">FIND</button>
+         <input type="button" class="btn btn-danger btn-danger btn-sm" onclick="window.close()" value="CANCEL">
+        </div>
+      </form>
+    </div>
+    <div class="col-xs-6">
+      <?php
+      if(!isset($finding)){
+        ?>
+        <div class="text-center type">
+            PW 찾기
+          </div>
+        <form class="form-horizontal" method="post">
+          <div class="form-group">
+              <label for="id" class=" control-label col-xs-3">ID</label>
+              <div class=" col-xs-6" >
+                <input class="form-control" type="text" name="id" >
+              </div>
+          </div>
+          <div class="form-group">
+              <label for="name" class=" control-label col-xs-3">NAME</label>
+              <div class=" col-xs-6" >
+                <input class="form-control" type="text" name="name" >
+              </div>
+          </div>
+          <div class="form-group">
+              <label for="phone" class="control-label col-xs-3">TEL</label>
+              <div class=" col-xs-6" >
+                <input class="form-control" type="tel" name="phone" >
+              </div>
+          </div>
+          <div class="col-xs-12 text-center">
+            <button type="submit" name="pwFindBtn" class="btn btn-primary btn-sm">FIND</button>
+         <input type="button" class="btn btn-danger btn-danger btn-sm" onclick="window.close()" value="CANCEL">
+          </div>
+        </form>
+
+      <?php
+    }else{
+      ?>
+      <div class="text-center type">
+          비밀번호 변경
+        </div>
+      <form class="form-horizontal" method="post">
+        <div class="form-group">
+            <label for="name" class=" control-label col-xs-3">PASSWORD</label>
+            <div class=" col-xs-6" >
+              <input class="form-control" style="font-family: 'Kopub Batang'" type="password" name="pw1" >
+            </div>
+        </div>
+        <div class="form-group">
+            <label for="phone" class="control-label col-xs-3">PASSWORD CHECK</label>
+            <div class=" col-xs-6" >
+              <input class="form-control" style="font-family: 'Kopub Batang'" type="password" name="pw2" >
+            </div>
+        </div>
+        <div class="col-xs-12 text-center">
+          <button type="submit" name="confirm" class="btn btn-primary btn-sm">CONFIRM</button>
+         <input type="button" class="btn btn-danger btn-danger btn-sm" onclick="window.close()" value="CANCEL">
+        </div>
+      </form>
+      <?php
+    }
+      ?>
+    </div>
 
 
-					<?php
-					}
 
-					if(isset($alarm))
-                                	{
 
-					echo $alarm;
-
-                                	} ?>
-				</div>
-			</div>
-		</div>
 		<script type="text/javascript" src="../js/find.js"></script>
 	</body>
 </html>

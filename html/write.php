@@ -63,7 +63,22 @@ function goBack()
 			 ?>
   window.history.back()
   }
+
+function resize(obj) {
+obj.style.height = "1px";
+obj.style.height = (12+obj.scrollHeight)+"px";
+}
+
+$("textarea.autosize").on('keydown keyup', function () {
+  $(this).height(1).height( $(this).prop('scrollHeight')+12 );
+
+	document.getElementById("textarea").scrollTop = document.getElementById("textarea").scrollHeight
+
+});
+
 </script>
+
+
 <!doctype html>
 <meta charset="utf-8">
 <html>
@@ -82,6 +97,7 @@ function goBack()
 		<meta name="viewport" content="width=device-width, initial-scale=1">
 
 		<style>
+
 
 			@import url(http://fonts.googleapis.com/earlyaccess/kopubbatang.css);
 			@import url(http://fonts.googleapis.com/earlyaccess/hanna.css);
@@ -105,9 +121,13 @@ function goBack()
 
 			.title{
 				font-family: 'Hanna', serif;
-				font-size: 2em;
-				height:160;
+				font-size: 1.6em;
+				height:180;
 			}
+
+			textarea.autosize { min-height: 50px;
+			max-height:500px; }
+
 
 			</style>
 	</head>
@@ -115,26 +135,24 @@ function goBack()
 
 		<div class="contatiner main text-center">
 
-				 <div class="row text-right service">
-							 <a class= "btn btn-default serviceBtn" href="mypage.php">MY</a>
-							<a class= "btn btn-default serviceBtn"  href="mainpage.php">MAIN</a>
-							 <a class= "btn btn-default serviceBtn"  href="index.html" onclick="logout()">LogOut</a>
-
-				 </div>
+			<div class="row text-right service">
+			 <a class= "btn btn-default" href="mypage.php">MY</a>
+			 <a class= "btn btn-default"  href="mainpage.php">MAIN</a>
+			 <a class= "btn btn-default" href="logout.php?logout=true">LogOut</a>
+			</div>
 				 <br><br>
 				 <form method="post" class="content">
 					 <div class="form-group">
 						 <div class="col-xs-offset-4 col-xs-4">
 						 <?php
-								print '<input class=" title" rows="2" cols="10" name="title" type="textarea" value="'.$userRow['title'].'" placeholder="글 제목을 입력하세요.">  '
+									print '<textarea class= "title form-control" row="2" cols="15" name="title" placeholder="글 제목을 입력하세요.">'.$userRow["title"].'</textarea>';
 							?>
-							<textarea rows="4" cols="50">
-At w3schools.com you will learn how to make a website. We offer free tutorials in all web development technologies.
-</textarea>
 
 						</div>
+					<div class="row">
+						<br><br>
 					</div>
-
+					<br>
 					<div class="form-group">
 						<div class="col-xs-offset-4 col-xs-4">
 							<select class="form-control" name="soje" >
@@ -154,18 +172,16 @@ At w3schools.com you will learn how to make a website. We offer free tutorials i
 							</select>
 					 </div>
 				 </div>
-
+<br>
 					 <div class="form-group">
 						 <div class="col-xs-offset-4 col-xs-4">
-							 <textarea class ="form-control" name="content"  placeholder="글 내용을 입력하세요.">
- 								<?php
+							 <textarea class ="form-control autosize" onkeydown="resize(this)" onkeyup="resize(this)" name="content"  placeholder="글 내용을 입력하세요."><?php
  	          			$userRow['content']= preg_replace("/<br>/","\r\n",$userRow['content']);
  									echo $userRow['content']
- 								?>
- 							</textarea>
+ 								?></textarea>
 						</div>
 					</div>
-
+					<br>					<br>
 					<div class="form-group">
 						<div class="col-xs-offset-4 col-xs-4">
 					<?php
@@ -183,6 +199,6 @@ At w3schools.com you will learn how to make a website. We offer free tutorials i
 				</form>
 
 
-		<script type="text/javascript" src="../js/index.js"></script>
+		<script type="text/javascript" src="../js/write.js"></script>
 	</body>
 </html>
