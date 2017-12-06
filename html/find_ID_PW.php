@@ -6,6 +6,7 @@ $user = new USER();
 
 $id;
 
+// id찾기 버튼이 눌렀을 경우
 if(isset($_POST['idFindBtn']))
 {
 
@@ -13,6 +14,7 @@ if(isset($_POST['idFindBtn']))
         $phone = $_POST['phone'];
         $phone = preg_replace("/[^0-9]/", "", $phone);
 
+  // 이름과 핸드폰 번호가 맞는지 확인해서 유저 id가져오기
 	try
 	{
 		$stmt = $user->runQuery("SELECT id FROM members WHERE name=:name and phone=:phone ");
@@ -37,7 +39,7 @@ if(isset($_POST['idFindBtn']))
 
 }
 
-
+//비밀번호 찾기 버튼이 눌린 경우
 if(isset($_POST['pwFindBtn']))
 {
 
@@ -48,6 +50,7 @@ if(isset($_POST['pwFindBtn']))
 
 	$_SESSION['temp_id'] = $id;
 
+//이름, 핸드폰번호, id가 맞는지 확인
 	try
 	{
         	$stmt = $user->runQuery("SELECT id FROM members WHERE id=:id and name=:name and phone=:phone ");
@@ -69,12 +72,14 @@ if(isset($_POST['pwFindBtn']))
 
 }
 
-
+//비밀번호를 변경버튼이 눌린 경우
 if(isset($_POST['confirm']))
 {
 
-	$pw1 = $_POST['pw1'];
+	       $pw1 = $_POST['pw1'];
         $pw2 = $_POST['pw2'];
+
+  // 비밀번호 입력형식이 맞는지 확인 후 비밀번호와 비밀번호 체크가 맞는지 확인 후 비밀번호 변경
 	try
 	{
 		 if(strlen($pw1)<4 || strlen($pw1)>12){
@@ -109,7 +114,8 @@ if(isset($_POST['confirm']))
 <meta charset="utf-8">
 <html>
 	<head>
-
+    <!-- 부트스르트랩 임포트 -->
+    <link rel="stylesheet" type="text/css" href="../css/find_ID_PW.css?ver=1">
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.4.0/css/font-awesome.min.css">
         <!-- Latest compiled and minified CSS -->
     <link rel="stylesheet" href="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap.min.css">
@@ -120,36 +126,19 @@ if(isset($_POST['confirm']))
     <!-- mobile reaction-->
     <meta name="viewport" content="width=device-width, initial-scale=1">
 
-          <style>
+    <style>
 
-            @import url(http://fonts.googleapis.com/earlyaccess/kopubbatang.css);
-            @import url(http://fonts.googleapis.com/earlyaccess/hanna.css);
-            @import url(http://fonts.googleapis.com/earlyaccess/jejugothic.css);
+    /* 글씨체 임포트 */
+    @import url(http://fonts.googleapis.com/earlyaccess/kopubbatang.css);
+    @import url(http://fonts.googleapis.com/earlyaccess/hanna.css);
+    @import url(http://fonts.googleapis.com/earlyaccess/jejugothic.css);
 
-            .wrap{
-              margin-top: 3em;
-            }
-
-            *{
-              font-family: 'Jeju Gothic', serif;
-            }
-
-            .type{
-
-              font-size:2em;
-              margin-bottom: 1em;
-            }
-
-            .btn{
-              width:7em;
-              margin-top : 1.5em;
-            }
-
-            </style>
+    </style>
 
 	</head>
 	<body>
 
+    <!-- ID찾기 창 -->
     <div class="content wrap">
       <div class="col-xs-6">
       <form class="form-horizontal" method="post">
@@ -174,6 +163,7 @@ if(isset($_POST['confirm']))
         </div>
       </form>
     </div>
+    <!-- 비밀번호 찾기 창 -->
     <div class="col-xs-6">
       <?php
       if(!isset($finding)){
@@ -206,6 +196,7 @@ if(isset($_POST['confirm']))
           </div>
         </form>
 
+        <!-- 비밀번호 변경 창 -->
       <?php
     }else{
       ?>

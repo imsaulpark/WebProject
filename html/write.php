@@ -3,8 +3,8 @@ require_once 'session.php';
 require_once 'user.php';
 $user = new USER();
 
-//$prevPage = $_SERVER['HTTP_REFERER'];
-
+// 만약 글 수정이라면 get id를 받아오며 원래 글의 정보를
+// 만약 글 수정이 아니라면 빈칸으로 남겨 놓는다.
 if(isset($_GET['id']))
 {
 	$stmt=$user->runQuery("SELECT * FROM posts WHERE id=:id");
@@ -17,6 +17,9 @@ if(isset($_GET['id']))
 	$userRow['category']="";
 	$userRow['title']="";
 }
+
+//수정버튼이 눌리면 글을 수정한다.
+//내용물은 엔터키가 제대로 적용이 안되므로 \r\n을 <br>로 고친다
 if(isset($_POST['editBtn']))
 {
 	$_POST['content']= preg_replace("/\r\n/","<br>",$_POST['content']);
@@ -35,6 +38,7 @@ if(isset($_POST['editBtn']))
  }
 }
 
+//글 수정이 아니라 글 추가인 경우이며 이 때도 마찬가지로 엔터키 수정.
 if(isset($_POST['uploadBtn']))
 {
 	$_POST['content']= preg_replace("/\r\n/","<br>",$_POST['content']);
@@ -55,7 +59,7 @@ if(isset($_POST['uploadBtn']))
 
 
 ?>
-
+<!-- 페이지 뒤로가기 기능  -->
 <script>
 function goBack()
   {
@@ -64,17 +68,11 @@ function goBack()
   window.history.back()
   }
 
+// textarea 크기를 자동으로 늘어나게.
 function resize(obj) {
 obj.style.height = "1px";
 obj.style.height = (12+obj.scrollHeight)+"px";
 }
-
-$("textarea.autosize").on('keydown keyup', function () {
-  $(this).height(1).height( $(this).prop('scrollHeight')+12 );
-
-	document.getElementById("textarea").scrollTop = document.getElementById("textarea").scrollHeight
-
-});
 
 </script>
 
@@ -83,9 +81,8 @@ $("textarea.autosize").on('keydown keyup', function () {
 <meta charset="utf-8">
 <html>
 	<head>
+		<!-- 부트스트랩 임포트 -->
 		<link rel="stylesheet" type="text/css" href="../css/write.css">
-		<link rel="stylesheet" type="text/css" href="../css/post.css">
-
 		<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.4.0/css/font-awesome.min.css">
 				<!-- Latest compiled and minified CSS -->
 		<link rel="stylesheet" href="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap.min.css">
@@ -97,50 +94,50 @@ $("textarea.autosize").on('keydown keyup', function () {
 		<meta name="viewport" content="width=device-width, initial-scale=1">
 
 		<style>
-
-
 			@import url(http://fonts.googleapis.com/earlyaccess/kopubbatang.css);
 			@import url(http://fonts.googleapis.com/earlyaccess/hanna.css);
 			@import url(http://fonts.googleapis.com/earlyaccess/jejugothic.css);
-
-		.service{
-				padding-right: 2em;
-				padding-top: 1em;
+			.service{
+			  padding-right: 2em;
+			  padding-top: 1em;
 			}
 
 			*{
-				font-family: 'Jeju Gothic', serif;
-				font-size:1.2em;
+			  font-family: 'Jeju Gothic', serif;
+			  font-size:1.2em;
 			}
 
 			.form-control{
-				border-style: hidden;
-				box-shadow: none;
+			  border-style: hidden;
+			  box-shadow: none;
 
 			}
 
 			.title{
-				font-family: 'Hanna', serif;
-				font-size: 1.6em;
-				height:180;
+			  font-family: 'Hanna', serif;
+			  font-size: 1.6em;
+			  height:180;
 			}
 
-			textarea.autosize { min-height: 50px;
-			max-height:500px; }
-
-
-			</style>
+			textarea.autosize
+			{
+			min-height: 50px;
+			max-height:500px;
+			}
+		</style>
 	</head>
 	<body>
 
 		<div class="contatiner main text-center">
 
+			<!-- 우측 상단의 메뉴바 -->
 			<div class="row text-right service">
 			 <a class= "btn btn-default" href="mypage.php">MY</a>
 			 <a class= "btn btn-default"  href="mainpage.php">MAIN</a>
 			 <a class= "btn btn-default" href="logout.php?logout=true">LogOut</a>
 			</div>
 				 <br><br>
+				 <!-- 글 제목 -->
 				 <form method="post" class="content">
 					 <div class="form-group">
 						 <div class="col-xs-offset-4 col-xs-4">
@@ -153,6 +150,7 @@ $("textarea.autosize").on('keydown keyup', function () {
 						<br><br>
 					</div>
 					<br>
+					<!-- 수정하기라면 기존 글에 있던 정보를 불러옴. -->
 					<div class="form-group">
 						<div class="col-xs-offset-4 col-xs-4">
 							<select class="form-control" name="soje" >
@@ -173,6 +171,7 @@ $("textarea.autosize").on('keydown keyup', function () {
 					 </div>
 				 </div>
 <br>
+					<!-- 내용물 가져오기 <br>은 다시 \r\n으로 바꿔준다. -->
 					 <div class="form-group">
 						 <div class="col-xs-offset-4 col-xs-4">
 							 <textarea class ="form-control autosize" onkeydown="resize(this)" onkeyup="resize(this)" name="content"  placeholder="글 내용을 입력하세요."><?php
@@ -181,24 +180,23 @@ $("textarea.autosize").on('keydown keyup', function () {
  								?></textarea>
 						</div>
 					</div>
-					<br>					<br>
+					<br><br>
 					<div class="form-group">
 						<div class="col-xs-offset-4 col-xs-4">
+							<br>
+					<!-- 글 수정인지 글 쓰기인지에 따라 수정하기버튼 혹은 글 올리기 버튼. -->
 					<?php
 						 if(isset($_GET['id']))
 						 {
-								print '<button class="btn" name="editBtn" id="">수정하기</button>';
+								print '<button class="btn btn-primary" name="editBtn" id="">수정하기</button>';
 
 						 }else{
-								print '<button class="btn" name="uploadBtn" id="">글올리기</button>';
+								print '<button class="btn brn-primary" name="uploadBtn" id="">글올리기</button>';
 						 }
 					?>
-					<input type="button" class="btn" value="취소" onclick="history.back()">
+					<input type="button" class="btn btn-danger" value="취소" onclick="history.back()">
 				</div>
 			</div>
 				</form>
-
-
-		<script type="text/javascript" src="../js/write.js"></script>
 	</body>
 </html>

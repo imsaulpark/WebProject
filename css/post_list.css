@@ -6,10 +6,10 @@ p{margin: 0px; }
 .header{width: auto; height: 40px; margin: 0px auto; text-align: center;}
 .header .btnArea {width: 100%; height: 40px;}
 .header ul li{
-   float: right; 
-   padding: 3px 7px; 
-   border-radius: 5px;  
-   margin: 0px 5px; 
+   float: right;
+   padding: 3px 7px;
+   border-radius: 5px;
+   margin: 0px 5px;
    border: 1px solid #666666;
 }
 #title{height: 130px; margin: 20px 0px; border-bottom: 3px solid #333333; }
@@ -29,3 +29,56 @@ h2 {word-break:break-all;}
 #auto{font-size: 14px; border: 1px solid #666; border-radius: 3px; height: 21px; width: auto; margin: 5px; padding: 3px}
 #content{width: 120px; float: left; margin: 0px 0px;}
 #del_ID{float: right;}
+
+.serviceBtn {
+  width: 70px;
+  border-radius: 17px;
+}
+
+
+@import url(http://fonts.googleapis.com/earlyaccess/kopubbatang.css);
+@import url(http://fonts.googleapis.com/earlyaccess/hanna.css);
+@import url(http://fonts.googleapis.com/earlyaccess/jejugothic.css);
+.service{
+  padding-right: 2em;
+  padding-top: 1em;
+}
+
+.list{
+  background-color : #F5F5F5;
+
+}
+
+*{
+  font-family: 'Jeju Gothic', serif;
+}
+
+h1{
+  font-size: 2.5em;
+  color:black;
+}
+
+h2{
+  font-size: 1.5em;
+  color:black;
+}
+
+h3{
+  text-overflow: ellipsis;
+  font-size:1.2em;
+  line-height: 80%;
+}
+
+.post{
+  background-color:rgba(0, 0, 0, 0);
+  border-bottom: 1px solid #DCDCDC;
+  text-align: left;
+  color:	#696969;
+}
+
+.content{
+   overflow: hidden;
+   text-overflow: ellipsis;
+   height : 4.5em;
+   color:	#696969;
+}

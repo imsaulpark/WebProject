@@ -3,7 +3,10 @@ require_once 'session.php';
 require_once 'user.php';
 $user = new USER();
 
+//상위 4개의 포스트를 가져옴
 $bestPosts = $user->get_best_post();
+
+//모든 카테고리 종류를 가져옴
 $allCategory = $user->get_all_category();
 
 $_SESSION['state']='category';
@@ -14,8 +17,8 @@ $_SESSION['state']='category';
 <meta charset="utf-8">
 <html>
    <head>
-      <link rel="stylesheet" type="text/css" href="../css/mainpage.css">
-
+      <!-- 부트스트랩 임포트  -->
+      <link rel="stylesheet" type="text/css" href="../css/mainpage.css?ver=2">
       <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.4.0/css/font-awesome.min.css">
           <!-- Latest compiled and minified CSS -->
       <link rel="stylesheet" href="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap.min.css">
@@ -25,7 +28,10 @@ $_SESSION['state']='category';
       <script src="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/js/bootstrap.min.js"></script>
       <!-- mobile reaction-->
       <meta name="viewport" content="width=device-width, initial-scale=1">
+
+      <!-- 글씨체 임포트 -->
       <style>
+
       @import url(//fonts.googleapis.com/earlyaccess/nanumpenscript.css);
       @import url(http://fonts.googleapis.com/earlyaccess/kopubbatang.css);
       @import url(http://fonts.googleapis.com/earlyaccess/hanna.css);
@@ -43,32 +49,8 @@ $_SESSION['state']='category';
         color:gray;
       }
 
-      .service{
- 				padding-right: 2em;
- 				padding-top: 1em;
- 			}
+  		</style>
 
-
-      .heading{
- 				background-color : #F5F5F5;
-      }
-
-      *{
-        font-family: 'Jeju Gothic', serif;
-      }
-
-      p{
-        font-size:1.3em;
-        overflow: hidden;
-        text-overflow: ellipsis;
-        display: -webkit-box;
-        -webkit-box-orient: vertical;
-        -webkit-line-clamp: 2; /* number of lines to show */
-        line-height: 1.2em;        /* fallback */
-        max-height: 2.4em;       /* fallback */
-      }
-
-      </style>
    </head>
    <body>
       <div class="containe text-center">
@@ -84,6 +66,7 @@ $_SESSION['state']='category';
                <h2>BOOKCHEF의 최고의 게시물을 만나보세요!</h2>
                 <br>
           </div>
+          <!-- 상위 4개의 게시물을 나열. -->
           <div class="row">
                 <br><br>
             <?php
@@ -113,6 +96,7 @@ $_SESSION['state']='category';
                <br>
           </div>
           <br><br>
+              <!-- 카테고리 24개를 4x6의 형태로 나눠서 정 -->
               <?php
                 for($i=0;$i<$allCategory->rowCount();$i++)
                 {
@@ -133,6 +117,5 @@ $_SESSION['state']='category';
                ?>
                <br><br> <br><br>
         </div>
-      <script type="text/javascript" src="../js/index.js"></script>
    </body>
 </html>

@@ -96,3 +96,45 @@ h1{
  -webkit-border-radius: 100px;
  border-radius: 150px;
 }
+
+@import url(//fonts.googleapis.com/earlyaccess/nanumpenscript.css);
+@import url(http://fonts.googleapis.com/earlyaccess/kopubbatang.css);
+@import url(http://fonts.googleapis.com/earlyaccess/hanna.css);
+@import url(http://fonts.googleapis.com/earlyaccess/jejugothic.css);
+
+h1{
+  font-family: 'Nanum Pen Script', cursive;
+  font-size:5em;
+  margin-bottom:0;
+}
+h2{
+          margin-top:0;
+  font-family: 'Nanum Pen Script', cursive;
+  font-size:3em;
+  color:gray;
+}
+
+.service{
+  padding-right: 2em;
+  padding-top: 1em;
+}
+
+
+.heading{
+  background-color : #F5F5F5;
+}
+
+*{
+  font-family: 'Jeju Gothic', serif;
+}
+
+p{
+  font-size:1.3em;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  display: -webkit-box;
+  -webkit-box-orient: vertical;
+  -webkit-line-clamp: 2; /* number of lines to show */
+  line-height: 1.2em;        /* fallback */
+  max-height: 2.4em;       /* fallback */
+}

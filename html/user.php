@@ -8,6 +8,7 @@ class USER
 {
 	private $db;
 
+//생성자로서 db와 연동
 	public function __construct()
 	{
 		$database = new Database();
@@ -15,12 +16,14 @@ class USER
 		$this->db = $conn;
     }
 
+//sql 부르는 함수
 		public function runQuery($sql)
 		{
 			$stmt = $this->db->prepare($sql);
 			return $stmt;
 		}
 
+//회원등록
 	public function register($id,$pw,$phone,$name,$nickname,$intro)
 	{
 
@@ -47,6 +50,7 @@ class USER
 
 	}
 
+//회원정보수정
 	public function edit_profile($id,$pw,$phone,$name,$nickname,$intro)
 	{
 		try
@@ -70,6 +74,7 @@ class USER
 		}
 	}
 
+//로그인함수
 	public function login($id,$pw)
 	{
 		try
@@ -96,6 +101,7 @@ class USER
 		}
 	}
 
+//유저의 모든 소제 가져오기
 	public function get_soje($id)
 	{
 		try
@@ -110,6 +116,7 @@ class USER
 		}
 	}
 
+//유저의 모든 소제 삭제
 	public function delete_all_soje($id)
 	{
 		try
@@ -123,6 +130,7 @@ class USER
 		}
 	}
 
+//소제 추가
 	public function add_soje($id, $category, $soje)
 	{
 		try
@@ -142,6 +150,7 @@ class USER
 		}
 	}
 
+// 소제 수정
 	public function edit_soje($id, $oldcategory,$oldsoje,$newcategory, $newsoje)
 	{
 		try
@@ -160,12 +169,15 @@ class USER
 		}
 	}
 
+// 소제 삭제
 	public function delete_soje($id,$category,$soje)
 	{
 		try
 		{
 			$stmt = $this->db->prepare("DELETE FROM keyword WHERE id=:id AND category=:category AND soje=:soje");
 			$stmt->execute(array(':id'=>$id,':category'=>$category,':soje'=>$soje));
+			$stmt = $this->db->prepare("DELETE FROM posts WHERE memberID=:id AND soje=:soje");
+			$stmt->execute(array(':id'=>$id,':soje'=>$soje));
 		}
 		catch(PDOException $e)
 		{
@@ -174,6 +186,7 @@ class USER
 
 	}
 
+// 카테고리 가져오기
 	public function get_category($id,$soje)
 	{
 		try
@@ -189,6 +202,7 @@ class USER
 		}
 	}
 
+// 카테고리 모두 가져오기
 	public function get_all_category()
 	{
 			try
@@ -204,6 +218,7 @@ class USER
 
 	}
 
+// introduction 가져오기
 	public function get_intro($id)
 	{
 		try{
@@ -219,11 +234,12 @@ class USER
 
 	}
 
+// 게시물 개수 가져오기
 	public function get_num_post($id)
 	{
 		try
 		{
-			$stmt = $this->db->prepare("SELECT * FROM posts WHERE memberId=:id LIMIT 1");
+			$stmt = $this->db->prepare("SELECT * FROM posts WHERE memberId=:id");
 			$stmt->execute(array(':id'=>$id));
 			return $stmt->rowCount();
 		}
@@ -233,6 +249,7 @@ class USER
 		}
 	}
 
+// 유저의 게시물 가져오기
 	public function get_user_post($memberId, $soje)
 	{
 		try
@@ -247,6 +264,7 @@ class USER
 		}
 	}
 
+// 유저의 모든 게시물 가져오기
 	public function get_post($id)
 	{
 		try
@@ -262,6 +280,7 @@ class USER
 		}
 	}
 
+// 상위 4위 게시물 가져오기
 	public function get_best_post()
 	{
 		try
@@ -276,6 +295,7 @@ class USER
 		}
 	}
 
+// 게시물 쓰기
 	public function write_post($memberID, $category, $soje, $title, $content)
 	{
 		try
@@ -289,6 +309,7 @@ class USER
 		}
 	}
 
+// 게시물 수정하기
 	public function edit_post($id, $memberID, $category, $soje, $title, $content)
 	{
 		try
@@ -302,6 +323,7 @@ class USER
 		}
 	}
 
+// 게시물 삭제
 	public function delete_post($id)
 	{
 		try
@@ -317,7 +339,7 @@ class USER
 
 	}
 
-
+// 구독자수 가져오기
 	public function get_num_subscriber($id)
 	{
 		try
@@ -332,6 +354,7 @@ class USER
 		}
 	}
 
+// 구독자 추가
 	public function add_subscriber($subscriber, $writer)
 	{
 		try
@@ -346,6 +369,7 @@ class USER
 		}
 	}
 
+// 구독자 삭제
 	public function delete_subscriber($subscriber, $writer)
 	{
 		try
@@ -360,6 +384,7 @@ class USER
 		}
 	}
 
+// 조회수 추가
 	public function add_hit($id)
 	{
 		$stmt = $this->db->prepare("UPDATE posts SET hits=hits+1 WHERE id=:id");
@@ -367,12 +392,20 @@ class USER
 
 	}
 
+// 회원탈퇴
 	public function sign_out($id){
 
 			$stmt = $this->db->prepare("DELETE FROM members WHERE id=:id");
 			$stmt->execute(array(':id'=>$id));
-	}
+			$stmt = $this->db->prepare("DELETE FROM keyword WHERE id=:id");
+			$stmt->execute(array(':id'=>$id));
+			$stmt = $this->db->prepare("DELETE FROM subscription WHERE writer=:id OR subscriber=:id");
+			$stmt->execute(array(':id'=>$id));
+			$stmt = $this->db->prepare("DELETE FROM posts WHERE memberID=:id");
+			$stmt->execute(array(':id'=>$id));
+		}
 
+// 로그인 되어있는지
 	public function is_loggedin()
 	{
 		if(isset($_SESSION['id']))
@@ -381,11 +414,13 @@ class USER
 		}
 	}
 
+// 페이지 이동
 	public function redirect($url)
 	{
 		header("Location: $url");
 	}
 
+// 로그아웃
 	public function logout()
 	{
 		session_destroy();

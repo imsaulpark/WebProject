@@ -57,9 +57,34 @@ button:hover {
 button:active {
   background-color: #666;
 }
-#body {background-image:url(../img/baby.jpg); background-size: cover;
+#body {background-image:url(../img/index.jpg); background-size: cover;
 	font-family: arial, helvetica, sans-serif;}
 input::
 input::placeholder {
   color: rgba(255,255,255,.4);
 }
+
+
+
+  .right{
+    background-color: rgba(10,10,10,.68);
+    height:100vh;
+  }
+
+  .upper{
+    height:23vh;
+  }
+
+  *{
+    font-family: 'Jeju Gothic', serif;
+  }
+
+  .title{
+    font-size: 3em;
+    color:white;
+    margin-bottom: 2.5em;
+  }
+
+  .login{
+    font-size: 1.5em;
+  }

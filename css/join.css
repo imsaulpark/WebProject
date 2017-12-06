@@ -17,3 +17,15 @@ textarea{border: 1px solid #666; height: 72px; width: 147px; margin: 5px;}
 .content ul span{width: 150px; display: inline-block;}
 #book_intro{width: 150px; float: left; margin: 0px 0px;}
 #textarea{float: left;}
+
+@import url(http://fonts.googleapis.com/earlyaccess/kopubbatang.css);
+@import url(http://fonts.googleapis.com/earlyaccess/hanna.css);
+@import url(http://fonts.googleapis.com/earlyaccess/jejugothic.css);
+
+
+*{
+  font-family: 'Jeju Gothic', serif;
+}
+
+textarea.autosize { min-height: 50px;
+max-height:200px; }

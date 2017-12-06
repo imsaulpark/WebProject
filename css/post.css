@@ -29,3 +29,7 @@ p{width: 20px; height: 150px; margin: 0px auto;}
 #del_post{position: fixed; right: 15px;}
 #edit_post{position: fixed;}
 #subscribe{position: fixed;}
+
+@import url(http://fonts.googleapis.com/earlyaccess/kopubbatang.css);
+@import url(http://fonts.googleapis.com/earlyaccess/hanna.css);
+@import url(http://fonts.googleapis.com/earlyaccess/jejugothic.css);

@@ -6,12 +6,14 @@
 	$user = new USER();
 	$id = $_SESSION['id'];
 
+	//로그인이 안되어 있다면 로그인 페이지로 이동시키기
 	if(!$user->is_loggedin())
 	{
 		$user->redirect('index.php');
 	}
 
-
+	//이전 페이지에서 현재 시간의 정보를 받아옴.
+	//prev버튼을 누르면 한달 전 시간의 정보를 가져오게 됨.
 	$last_day = $_SESSION['last_day']; //총 날짜 수
 	$start_day = $_SESSION['start_day']; //시작 요일
 	$total_week = $_SESSION['total_week']; //총 몇주
@@ -19,6 +21,7 @@
 	$this_mon = $_SESSION['this_mon']; //이번달
 	$this_year = $_SESSION['this_year']; //이번년
 
+	//count에 따라서 달의 정보가 바뀌며 그에 따른 값을 수정하여 페이지를 초기화.
 	function changeDate($user){
 
 		$_SESSION['last_day']=date("t",strtotime("now ".$_SESSION['count']." month"));
@@ -31,7 +34,7 @@
 		$user->redirect('mypage.php');
 	}
 
-
+	//이전달이면 달을 하나 마이너스
 	if(isset($_POST['prevBtn']))
 	{
 
@@ -40,6 +43,7 @@
 
 	}
 
+	//다음달이면 달을 하나 플러스
 	if(isset($_POST['nextBtn']))
 	{
 
@@ -54,6 +58,7 @@
 <meta charset="utf-8">
 <html>
 	<head>
+		<!-- 부트스트랩 임포트 -->
 		<link rel="stylesheet" type="text/css" href="../css/mypage.css">
 		<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.4.0/css/font-awesome.min.css">
 				<!-- Latest compiled and minified CSS -->
@@ -65,30 +70,21 @@
 		<!-- mobile reaction-->
 		<meta name="viewport" content="width=device-width, initial-scale=1">
 
+		<!-- 글씨체 임포트 -->
 		<style>
 
 			@import url(http://fonts.googleapis.com/earlyaccess/kopubbatang.css);
 			@import url(http://fonts.googleapis.com/earlyaccess/hanna.css);
 			@import url(http://fonts.googleapis.com/earlyaccess/jejugothic.css);
-			.service{
-				padding-right: 2em;
-				padding-top: 1em;
-			}
 
-			*{
-				font-family: 'Jeju Gothic', serif;
-			}
+		</style>
 
-			.soje{
-				background-color : #DCDCDC
-
-			}
-			</style>
 	</head>
 
 	<body>
 		<div class="contatiner main text-center">
 
+				 <!-- 마이페이지에서는 프로필 수정버튼과 구독자글을 볼 수 있는 버튼이 있다. -->
 				 <div class="row text-right service">
 					<a class= "btn btn-default serviceBtn" href="mypage.php">MY</a>
 					<a class= "btn btn-default serviceBtn" href="edit.php">EDIT</a>
@@ -97,26 +93,28 @@
 					<a class= "btn btn-default serviceBtn" href="logout.php?logout=true">LogOut</a>
 				 </div>
 
+				 <!-- id -->
 				 <div class="row text-left">
            <div class="col-xs-offset-4 col-xs-2">
              <h1><?php echo $id; ?></h1>
            </div>
         </div>
 
-
+				<!-- 구독자 수 글 수 -->
 			 <div class="row text-left">
 					<div class="col-xs-offset-4 col-xs-4">
 						<p class="p2">구독자 <?php echo $user->get_num_subscriber($id) ?> | 글 <?php echo $user->get_num_post($id) ?></p>
 					</div>
 			 </div>
 
-
+			 <!-- introduction -->
  			 <div class="row text-left">
  					<div class="col-xs-offset-4 col-xs-4">
  						<p class="p2"><?php echo $user->get_intro($id) ?> </p>
  					</div>
  			 </div>
 
+			 <!-- 소제 목록 -->
 			 <div class="row text-left soje">
  					<div class="col-xs-offset-4 col-xs-4">
 						<?php
@@ -139,6 +137,7 @@
 
 			<br><br>
 
+			<!-- 달력 그리기 -->
 			<div class="container">
 				<div class="row">
 					<div class="col-xs-push-2 col-xs-8">
@@ -228,8 +227,5 @@
 	 </div>
 	 </div>
 
-
-
-		<script type="text/javascript" src="../js/index.js"></script>
 	</body>
 </html>

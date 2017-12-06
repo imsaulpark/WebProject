@@ -16,11 +16,13 @@
 
 	$_SESSION['state']='soje';
 
+//로그인되어있지 않다면 login 페이지로
 	if(!$user->is_loggedin())
 	{
 		$user->redirect('index.php');
 	}
 
+//해당페이지의 유저아이디와 내 아이디가 같다면 hispage가 아닌 mypage로 이동
 	if($_GET['id'] == $_SESSION['id'])
 		$user->redirect('mypage.php');
 
@@ -33,10 +35,11 @@
 			$_SESSION['this_year'] = date("Y",strtotime("now ".$_SESSION['count']." month"));
 		  $_SESSION['this_mon']= date("m",strtotime("now ".$_SESSION['count']." month"));
 
-			$user->redirect('mypage.php');
+			$user->redirect('hispage.php?id='.$_GET['id']);
 		}
 
 
+		//달력 이전 버튼 클릭시
 		if(isset($_POST['prevBtn']))
 		{
 
@@ -44,7 +47,7 @@
 			changeDate($user);
 
 		}
-
+		//달력 다음 버튼 클릭시
 		if(isset($_POST['nextBtn']))
 		{
 
@@ -53,6 +56,7 @@
 
 		}
 
+	//구독 버튼 클릭시 해당 유저를 구독자 목록에 추가
   if(isset($_GET['subscription']))
   {
 		$stmt=$user->runQuery("SELECT * FROM subscription WHERE subscriber=:subscriber AND writer=:writer");
@@ -68,6 +72,8 @@
 <meta charset="utf-8">
 <html>
 	<head>
+		<!-- 부트스트랩 추가 -->
+		<link rel="stylesheet" type="text/css" href="../css/hispage.css?ver=1">
 		<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.4.0/css/font-awesome.min.css">
 				<!-- Latest compiled and minified CSS -->
 		<link rel="stylesheet" href="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap.min.css">
@@ -78,35 +84,23 @@
 		<!-- mobile reaction-->
 		<meta name="viewport" content="width=device-width, initial-scale=1">
 
+		<!-- 글씨체 추가 -->
 		<style>
 
 			@import url(http://fonts.googleapis.com/earlyaccess/kopubbatang.css);
 			@import url(http://fonts.googleapis.com/earlyaccess/hanna.css);
 			@import url(http://fonts.googleapis.com/earlyaccess/jejugothic.css);
-			.service{
-				padding-right: 2em;
-				padding-top: 1em;
-			}
 
-			*{
-				font-family: 'Jeju Gothic', serif;
-			}
-
-			.soje{
-				background-color : #DCDCDC
-
-			}
-			</style>
+		</style>
 
 	</head>
 
 		<body>
 			<div class="contatiner main text-center">
 
+					<!-- 유저의 정보 -->
 					 <div class="row text-right service">
 						<a class= "btn btn-default serviceBtn" href="mypage.php">MY</a>
-						<a class= "btn btn-default serviceBtn" href="edit.php">EDIT</a>
-						<a class= "btn btn-default serviceBtn"  href="post_list.php?state=subscription">SUBSCRIPTION</a>
 						<a class= "btn btn-default serviceBtn"  href="mainpage.php">MAIN</a>
 						<a class= "btn btn-default serviceBtn" href="logout.php?logout=true">LogOut</a>
 					 </div>
@@ -131,6 +125,7 @@
 	 					</div>
 	 			 </div>
 
+				 <!-- 소제 목록 -->
 				 <div class="row text-left soje">
 	 					<div class="col-xs-offset-4 col-xs-4">
 							<?php
@@ -153,6 +148,7 @@
 
 				<br><br>
 
+				<!-- 달력에 포스트 정보 출력 -->
 				<div class="container">
 					<div class="row">
 						<div class="col-xs-push-2 col-xs-8">

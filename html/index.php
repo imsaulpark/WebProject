@@ -6,29 +6,33 @@ require_once("user.php");
 
 $user = new USER();
 
+//로그인 되었다면 mypage로
 if($user->is_loggedin()!="")
 {
         $user->redirect('mypage.php');
 }
 
+//login버튼이 눌리면 id pw확인하고 맞으면 페이지 이동.
+//해당페이지로 현재 시간 정보를 제공
 if(isset($_POST['loginBtn']))
 {
-
-  $_SESSION['count']=0;
-  $_SESSION['last_day'] = date("t", time()); //총 요일 수
-  $_SESSION['start_day'] = date("w", strtotime(date("Y-m")."-01")); //시작 요일
-  $_SESSION['total_week'] = ceil(($_SESSION['last_day'] + $_SESSION['start_day'] )/7); // 총 요일
-  $_SESSION['last_week'] = date('w',strtotime(date("Y-m")."-".$_SESSION['last_day'] ));
-  $_SESSION['this_mon'] = date("m",strtotime(date("Y-m",strtotime('+0 month'))));
-  $_SESSION['this_year'] = date("Y",strtotime(date("Y-m",strtotime('+0 month'))));
 
         $id = $_POST['id'];
         $pw = $_POST['pw'];
 
         if($user->login($id,$pw))
         {
-		            $_SESSION["id"]=$id;
-                $user->redirect('mypage.php');
+
+            $_SESSION['count']=0;
+            $_SESSION['last_day'] = date("t", time()); //총 요일 수
+            $_SESSION['start_day'] = date("w", strtotime(date("Y-m")."-01")); //시작 요일
+            $_SESSION['total_week'] = ceil(($_SESSION['last_day'] + $_SESSION['start_day'] )/7); // 총 요일
+            $_SESSION['last_week'] = date('w',strtotime(date("Y-m")."-".$_SESSION['last_day'] ));
+            $_SESSION['this_mon'] = date("m",strtotime(date("Y-m",strtotime('+0 month'))));
+            $_SESSION['this_year'] = date("Y",strtotime(date("Y-m",strtotime('+0 month'))));
+
+            $_SESSION["id"]=$id;
+            $user->redirect('mypage.php');
         }
         else
         {
@@ -42,7 +46,8 @@ if(isset($_POST['loginBtn']))
 <meta charset="utf-8">
 <html>
 	<head>
-		<link rel="stylesheet" type="text/css" href="../css/index.css">
+    <!-- 부트스트랩 임포트 ->
+		<link rel="stylesheet" type="text/css" href="../css/index.css?ver=1">
 		<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.4.0/css/font-awesome.min.css">
         <!-- Latest compiled and minified CSS -->
     <link rel="stylesheet" href="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap.min.css">
@@ -53,38 +58,18 @@ if(isset($_POST['loginBtn']))
     <!-- mobile reaction-->
     <meta name="viewport" content="width=device-width, initial-scale=1">
 
+    <!-- 글씨체 임포트 -->
     <style>
 
     @import url(http://fonts.googleapis.com/earlyaccess/kopubbatang.css);
     @import url(http://fonts.googleapis.com/earlyaccess/hanna.css);
     @import url(http://fonts.googleapis.com/earlyaccess/jejugothic.css);
 
-      .right{
-        background-color: rgba(10,10,10,.68);
-        height:100vh;
-      }
-
-      .upper{
-        height:23vh;
-      }
-
-      *{
-        font-family: 'Jeju Gothic', serif;
-      }
-
-      .title{
-        font-size: 3em;
-        color:white;
-        margin-bottom: 2.5em;
-      }
-
-      .login{
-        font-size: 1.5em;
-      }
     </style>
 
 	</head>
 	<body id="body">
+    <!-- id와 pw를 입력하는 로그인창 및 회원가입과 id/pw찾기  -->
     <div class="text-center">
       <div class="row col-xs-offset-6 col-xs-6 right">
         <div class="content">
@@ -109,6 +94,7 @@ if(isset($_POST['loginBtn']))
     </div>
   </div>
 
+    <!-- 자바스크립트를 통해 팝업창 띄우기 (id/pw찾기) -->
 		<script type="text/javascript" src="../js/index.js"></script>
 	</body>
 </html>

@@ -16,3 +16,26 @@ p{margin: 0px; }
 .content ul li span{width: 80px; display: inline-block;}
 .bodyInbox .content .rightBox{float: left; width: 300px;padding: 40px 0px; box-sizing: border-box;}
 .input{height: 120px}
+
+@import url(http://fonts.googleapis.com/earlyaccess/kopubbatang.css);
+@import url(http://fonts.googleapis.com/earlyaccess/hanna.css);
+@import url(http://fonts.googleapis.com/earlyaccess/jejugothic.css);
+
+.wrap{
+  margin-top: 3em;
+}
+
+*{
+  font-family: 'Jeju Gothic', serif;
+}
+
+.type{
+
+  font-size:2em;
+  margin-bottom: 1em;
+}
+
+.btn{
+  width:7em;
+  margin-top : 1.5em;
+}
