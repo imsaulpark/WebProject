@@ -84,11 +84,12 @@ if(isset($_GET['signout']))
   $stmt->execute(array(':id'=>$_SESSION['id']));
   $userRow=$stmt->fetch(PDO::FETCH_ASSOC);
 
+  echo $pw;
 //비밀번호 맞는지 확인
   if(password_verify($pw, $userRow['pw']))
   {
     $user->sign_out($_SESSION['id']);
-    $user->redirect('logout.php?logout=true');
+    //$user->redirect('logout.php?logout=true');
   }
   else {
       $error[] = "Input correct password.";
