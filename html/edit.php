@@ -249,7 +249,7 @@ if(isset($_POST['editBtn']))
          <div class="form-group">
              <label for="intro" class="col-xs-offset-4 control-label col-xs-1">INTRO</label>
              <div class=" col-xs-2" >
-               <input class="form-control" type="text" name="intro" value = <?php echo $member['intro'] ?> >
+               <input class="form-control" type="text" name="intro" value = <?php echo "'".$member['intro']."'" ?> >
              </div>
          </div>
          <br>

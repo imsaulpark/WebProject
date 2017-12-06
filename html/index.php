@@ -87,7 +87,7 @@ if(isset($_POST['loginBtn']))
                 <li><i class="fa fa-key"></i><input class="pw_input" style="font-family: 'Kopub Batang'" name="pw" type="password" placeholder="Password"> </li>
               </ul>
               <p><button name="loginBtn" id="loginBtn">Log In</button></p>
-              <div><a href="./join.php">회원가입</a> / <a href="javascript:;" onclick="find_id_pw();">ID,PW찾기</a> </div>
+              <div><a href="./join.php">회원가입</a> / <a href="./find_ID_PW.php">ID,PW찾기</a> </div>
             </div>
           </form>
         </div>

@@ -102,6 +102,7 @@
 					 <div class="row text-right service">
 						<a class= "btn btn-default serviceBtn" href="mypage.php">MY</a>
 						<a class= "btn btn-default serviceBtn"  href="mainpage.php">MAIN</a>
+						<a class= "btn btn-default serviceBtn"  href="hispage.php?id=<?php echo $id ?>&subscription=true">SUBSCRIBE</a>
 						<a class= "btn btn-default serviceBtn" href="logout.php?logout=true">LogOut</a>
 					 </div>
 

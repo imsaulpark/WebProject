@@ -96,7 +96,7 @@ if(isset($_POST['confirm']))
                         $stmt = $user->runQuery("update members set pw=:pw WHERE id=:id");
                         $stmt->execute(array(':pw'=>$pw,':id'=>$_SESSION['temp_id']));
 			                  echo "<script>alert('Password is succesfully changed');</script>";
-                        echo "<script>window.close();</script>";
+                        $user->redirect("index.php");
                	}
 	}
           catch(PDOException $e)
@@ -133,13 +133,33 @@ if(isset($_POST['confirm']))
     @import url(http://fonts.googleapis.com/earlyaccess/hanna.css);
     @import url(http://fonts.googleapis.com/earlyaccess/jejugothic.css);
 
+    .wrap{
+      margin-top: 3em;
+    }
+
+    *{
+      font-family: 'Jeju Gothic', serif;
+    }
+
+    .type{
+
+      font-size:2em;
+      margin-bottom: 1em;
+    }
+
+    .btn{
+      width:7em;
+      margin-top : 1.5em;
+    }
+
     </style>
 
 	</head>
 	<body>
 
     <!-- ID찾기 창 -->
-    <div class="content wrap">
+    <div class="container">
+      <br><br><br>
       <div class="col-xs-6">
       <form class="form-horizontal" method="post">
         <div class="type text-center">
@@ -159,7 +179,7 @@ if(isset($_POST['confirm']))
         </div>
         <div class="col-xs-12 text-center">
           <button type="submit" name="idFindBtn" class="btn btn-primary btn-sm">FIND</button>
-         <input type="button" class="btn btn-danger btn-danger btn-sm" onclick="window.close()" value="CANCEL">
+         <input type="button" class="btn btn-danger btn-danger btn-sm" onclick="history.back()" value="CANCEL">
         </div>
       </form>
     </div>
@@ -192,7 +212,7 @@ if(isset($_POST['confirm']))
           </div>
           <div class="col-xs-12 text-center">
             <button type="submit" name="pwFindBtn" class="btn btn-primary btn-sm">FIND</button>
-         <input type="button" class="btn btn-danger btn-danger btn-sm" onclick="window.close()" value="CANCEL">
+         <input type="button" class="btn btn-danger btn-danger btn-sm" onclick="history.back()" value="CANCEL">
           </div>
         </form>
 
@@ -218,7 +238,7 @@ if(isset($_POST['confirm']))
         </div>
         <div class="col-xs-12 text-center">
           <button type="submit" name="confirm" class="btn btn-primary btn-sm">CONFIRM</button>
-         <input type="button" class="btn btn-danger btn-danger btn-sm" onclick="window.close()" value="CANCEL">
+         <input type="button" class="btn btn-danger btn-danger btn-sm" onclick="history.back()" value="CANCEL">
         </div>
       </form>
       <?php
