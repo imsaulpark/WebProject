@@ -46,7 +46,12 @@ if(isset($_POST['sojeEditBtn']))
 {
   $size = count($_POST['category']);
   $user->delete_all_soje($_SESSION['id']);
-  for($i=0;$i<$size-1;$i++)
+  if(strlen(trim($_POST['soje'][$size-1]))!=0)
+    $max=$size;
+  else {
+      $max=$size-1;
+  }
+  for($i=0;$i<$max;$i++)
   {
     $user->add_soje($_SESSION['id'],$_POST['category'][$i],$_POST['soje'][$i]);
   }
@@ -71,7 +76,7 @@ $stmt= $user->runQuery("SELECT * FROM subscription WHERE subscriber=:subscriber"
 $stmt->execute(array(':subscriber'=>$member['id']));
 
 //회원탈퇴 버튼 눌렸을 시
-if(isset($_POST['signoutBtn']))
+if(isset($_GET['signout']))
 {
   $pw = $_POST['pw'];
 
@@ -186,6 +191,7 @@ if(isset($_POST['editBtn']))
       <a class= "btn btn-default serviceBtn" href="mypage.php">MY</a>
       <a class= "btn btn-default serviceBtn"  href="mainpage.php">MAIN</a>
       <a class= "btn btn-default serviceBtn" href="logout.php?logout=true">LogOut</a>
+      <a class= "btn btn-default serviceBtn" href="logout.php?signout=true">SignOut</a>
      </div>
      <div class="header text-center lead">
        <h1>회원정보 수정</h1>
