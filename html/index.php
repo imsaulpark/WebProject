@@ -46,7 +46,7 @@ if(isset($_POST['loginBtn']))
 <meta charset="utf-8">
 <html>
 	<head>
-    <!-- 부트스트랩 임포트 ->
+    <!-- 부트스트랩 임포트 -->
 		<link rel="stylesheet" type="text/css" href="../css/index.css?ver=1">
 		<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.4.0/css/font-awesome.min.css">
         <!-- Latest compiled and minified CSS -->
@@ -65,98 +65,6 @@ if(isset($_POST['loginBtn']))
     @import url(http://fonts.googleapis.com/earlyaccess/hanna.css);
     @import url(http://fonts.googleapis.com/earlyaccess/jejugothic.css);
 
-
-
-    ul{list-style: none;}
-    li{list-style: none;}
-    a{text-decoration: none; color: #000;}
-    p{margin: 0px; }
-
-    .bodyInbox {width: 100%; height: 900px; margin: 0 auto;}
-    .header {float: right; width: 100px; height: 150px; margin-top: 20px;}
-    .header .btnArea {float: left; width: 50px; }
-    .header ul li{
-    	float: left;
-    	padding: 3px 7px;
-    	border-radius: 5px;
-    	margin: 0px 5px;
-    	border: 1px solid #666666;
-    	background-color: rgba(10,10,10,.68);
-    }
-    .header ul li a{color: #fff;}
-    .bodyInbox .content{width: 100%; height: 100%; clear:both; margin-top: 0px; }
-
-    .bodyInbox .content .leftBox{float: left; width: 50%; height: 400px; padding-top: 100px; box-sizing: border-box;
-    	}
-
-    .rightBody{clear: both;}
-    .rightBox form p{width: 80px; margin: 20px auto;}
-    .rightBox form div{width: 170px; margin: 20px auto; padding: 5px 10px;
-    	border: 1px solid #666666; border-radius: 5px; font-size: 15px;
-    	text-align: center; background-color: rgba(10,10,10,.68);
-    }
-
-    div a{
-    		color : #C0C0C0;
-    }
-
-
-    #loginBtn{padding: 5px 10px; width: 12em; border: 1px solid #666666; border-radius: 5px;
-    	font-size: 17px; text-align: center; font-weight: 300; color: #fff; margin-top:1em;
-    	background-color: rgba(10,10,10,.68);
-    }
-
-    ul{ padding-left: 0px; width: 190px; margin: 0 auto;}
-    ul li input{background: transparent; border: none; height: 24px; width: 150px; margin: 5px; color: #ddd;}
-    a{color: #fff; font-weight: 500;}
-    ul li{border-bottom: 1px solid #fff;}
-
-
-    .bodyInbox .content .rightBox{float: right; width: 50%; box-sizing: border-box; height: 100%;
-    background-color: rgba(10,10,10,.68);}
-    i{color: white;}
-
-    input:focus, button:focus {
-      outline: none;
-    }
-    button:hover {
-      background-color: #fff;
-    }
-
-    button:active {
-      background-color: #666;
-    }
-    #body {background-image:url(../img/index.jpg); background-size: cover;
-    	font-family: arial, helvetica, sans-serif;}
-    input::
-    input::placeholder {
-      color: rgba(255,255,255,.4);
-    }
-
-
-
-      .right{
-        background-color: rgba(10,10,10,.68);
-        height:100vh;
-      }
-
-      .upper{
-        height:23vh;
-      }
-
-      *{
-        font-family: 'Jeju Gothic', serif;
-      }
-
-      .title{
-        font-size: 3em;
-        color:white;
-        margin-bottom: 2.5em;
-      }
-
-      .login{
-        font-size: 1.5em;
-      }
 
     </style>
 
