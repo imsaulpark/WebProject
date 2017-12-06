@@ -132,11 +132,9 @@ obj.style.height = (12+obj.scrollHeight)+"px";
 
 </head>
 	<body>
-		<div class="bodyInbox">
-			<div class="header text-center lead">
+		<div class="header text-center lead">
 				<h1>회원가입</h1>
 			</div>
-			<div class="content">
 				<form class="form-horizontal" method="post">
           <div class="text-center">
               <!-- 오류메세지 출력 -->
@@ -161,7 +159,6 @@ obj.style.height = (12+obj.scrollHeight)+"px";
               }
               ?>
            </div>
-					<ul>
             <!-- 회원가입 input form  -->
             <div class="form-group">
                 <label for="id" class=" control-label col-xs-5">ID</label>
@@ -207,13 +204,10 @@ obj.style.height = (12+obj.scrollHeight)+"px";
             </div>
             <div class="col-xs-12 text-center">
               <button type="submit" name="joinBtn" class="btn btn-primary btn-sm">SIGN UP</button>
-         <input type="button" class="btn btn2 btn-danger btn-sm" onclick="history.back()" value="CA">
-            </div>
-					</ul>
+         <input type="button" class="btn btn2 btn-danger btn-sm" onclick="history.back()" value="CANCEL">
+       </div>
 					<p>
 					</p>
 				</form>
-			</div>
-		</div>
 	</body>
 </html>

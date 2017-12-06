@@ -191,7 +191,7 @@ obj.style.height = (12+obj.scrollHeight)+"px";
 								print '<button class="btn btn-primary" name="editBtn" id="">수정하기</button>';
 
 						 }else{
-								print '<button class="btn brn-primary" name="uploadBtn" id="">글올리기</button>';
+								print '<button class="btn btn-primary" name="uploadBtn" id="">글올리기</button>';
 						 }
 					?>
 					<input type="button" class="btn btn-danger" value="취소" onclick="history.back()">
